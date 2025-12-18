@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Care Mobility Support Services</title>
+  <meta name="description" content="Reliable, recurring transportation for dialysis, chemotherapy, and other essential medical appointments." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <h1>Care Mobility Support Services</h1>
+      <p class="subtitle">
+        Reliable transportation for recurring medical appointments.
+        The same driver. The same vehicle. Every time.
+      </p>
+      <a href="#contact" class="cta">Request a Ride</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h2>Who We Help</h2>
+        <p>
+          Care Mobility is designed for individuals and families who need
+          dependable transportation for ongoing health care needs such as
+          dialysis, chemotherapy, physical therapy, and other recurring
+          medical appointments.
+        </p>
+        <p>
+          Rideshare services can be unpredictable. Different drivers, different
+          vehicles, and uncertain arrival times can create stress on days when
+          reliability matters most.
+        </p>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <h2>Why Care Mobility</h2>
+        <ul class="features">
+          <li>Consistent, scheduled transportation</li>
+          <li>Same driver and vehicle whenever possible</li>
+          <li>On-time pickup and return</li>
+          <li>Clear communication with patients and families</li>
+          <li>Ideal for long-term and recurring appointments</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Service Area</h2>
+        <p>
+          We currently provide service in the local area and focus on
+          short- to mid-distance medical appointments that require
+          reliability and care.
+        </p>
+      </div>
+    </section>
+
+    <section id="contact" class="section alt">
+      <div class="container">
+        <h2>Request Information</h2>
+        <p>
+          Use the form below to request availability or ask questions.
+          We’ll respond promptly.
+        </p>
+
+        <form name="care-mobility-contact" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="care-mobility-contact" />
+
+          <label>
+            Name
+            <input type="text" name="name" required />
+          </label>
+
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+
+          <label>
+            Phone
+            <input type="tel" name="phone" />
+          </label>
+
+          <label>
+            Message
+            <textarea name="message" rows="4" required></textarea>
+          </label>
+
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>
+        © <span id="year"></span> Care Mobility Support Services
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
