@@ -1,272 +1,147 @@
-:root {
-  --brand: #0f4c81;
-  --brand-dark: #0c3d68;
-  --text: #0f172a;
-  --muted: #475569;
-  --bg: #ffffff;
-  --surface: #f1f5f9;
-  --border: #e2e8f0;
-  --radius: 14px;
-}
-
+/* Global Reset */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  color: var(--text);
-  background: var(--bg);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #0f172a;
+  background-color: #ffffff;
   line-height: 1.6;
 }
 
-img, video {
-  max-width: 100%;
-  display: block;
-}
-
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.muted {
-  color: var(--muted);
-}
-
+/* Header */
 .site-header {
-  position: sticky;
-  top: 0;
-  background: rgba(255,255,255,0.95);
-  border-bottom: 1px solid var(--border);
-  z-index: 10;
-}
-
-.header-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 0;
+  padding: 18px 40px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.brand {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.brand-mark {
-  background: var(--brand);
-  color: white;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-}
-
-.brand-text span {
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-.nav a {
-  margin-left: 18px;
-  text-decoration: none;
-  color: var(--muted);
-  font-weight: 600;
-}
-
-.nav a:hover {
-  color: var(--text);
-}
-
-.nav-cta {
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-}
-
-.hero {
-  padding: 48px 0;
-  background: linear-gradient(180deg, rgba(15,76,129,0.1), transparent);
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 28px;
-}
-
-.hero h1 {
-  font-size: clamp(2rem, 3vw, 3rem);
-  margin-bottom: 12px;
-}
-
-.lead {
-  font-size: 1.1rem;
-}
-
-.video-note {
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-.hero-actions {
-  margin-top: 16px;
-  display: flex;
-  gap: 12px;
-}
-
-.btn {
-  padding: 12px 18px;
-  border-radius: var(--radius);
-  text-decoration: none;
+.brand-name {
+  font-size: 1.3rem;
   font-weight: 700;
-  border: none;
-  cursor: pointer;
+  color: #0b3a66;
 }
 
-.btn.primary {
-  background: var(--brand);
-  color: white;
+.brand-tagline {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 2px;
 }
 
-.btn.primary:hover {
-  background: var(--brand-dark);
+.header-nav a {
+  margin-left: 24px;
+  text-decoration: none;
+  color: #334155;
+  font-weight: 500;
 }
 
-.btn.secondary {
-  background: white;
-  border: 1px solid var(--border);
-  color: var(--text);
-}
-
-.note {
-  margin-top: 12px;
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-.media-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-.video-card video {
-  height: 320px;
-  object-fit: cover;
-  background: black;
-}
-
-.media-caption {
-  padding: 12px;
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-.section {
-  padding: 56px 0;
-}
-
-.section.alt {
-  background: var(--surface);
-}
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-top: 20px;
-}
-
-.card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-}
-
-.bio-grid {
-  display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 24px;
-  align-items: center;
-}
-
-.bio-photo img {
-  border-radius: var(--radius);
-  height: 300px;
-  object-fit: cover;
-}
-
-.badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.badges span {
-  background: rgba(15,76,129,0.1);
-  border: 1px solid rgba(15,76,129,0.2);
-  padding: 6px 12px;
+.header-nav .cta {
+  padding: 8px 16px;
   border-radius: 999px;
-  font-weight: 600;
+  border: 1px solid #cbd5e1;
 }
 
-.contact-form {
-  max-width: 600px;
-  margin-top: 20px;
+/* Section */
+.care-section {
+  padding: 80px 40px 0;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-label {
-  display: block;
-  margin-bottom: 14px;
-  font-weight: 600;
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 16px;
 }
 
-input, textarea {
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #475569;
+  max-width: 800px;
+  margin-bottom: 48px;
+}
+
+/* Cards */
+.care-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-bottom: 56px;
+}
+
+.care-card {
+  border-radius: 18px;
+  padding: 28px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.care-card h3 {
+  margin: 14px 0 10px;
+  font-size: 1.25rem;
+}
+
+.care-card p {
+  color: #374151;
+}
+
+.care-icon {
+  font-size: 2rem;
+}
+
+/* Card Colors */
+.care-card.dialysis {
+  background: #eef6ff;
+  border-color: #cfe3ff;
+}
+
+.care-card.chemo {
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+
+.care-card.therapy {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+/* Bottom Image */
+.care-image-wrapper {
   width: 100%;
-  padding: 10px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  margin-top: 6px;
+  margin-top: 40px;
 }
 
-.footer {
-  border-top: 1px solid var(--border);
-  padding: 20px 0;
-  background: #0b1220;
-  color: #cbd5e1;
+.care-bottom-image {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  display: block;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-@media (max-width: 900px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
+/* Responsive */
+@media (max-width: 768px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
 
-  .cards {
-    grid-template-columns: 1fr;
+  .header-nav {
+    display: flex;
+    gap: 16px;
   }
 
-  .bio-grid {
-    grid-template-columns: 1fr;
+  .care-section {
+    padding: 60px 20px 0;
   }
 
-  .video-card video {
-    height: 260px;
+  .section-title {
+    font-size: 1.9rem;
   }
 }

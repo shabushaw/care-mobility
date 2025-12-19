@@ -3,205 +3,84 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Care Mobility Support Services</title>
-  <meta name="description" content="Reliable non-emergency medical transportation for recurring appointments like dialysis, chemotherapy, physical therapy, and more." />
+  <title>Care Mobility</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
+
   <!-- Header -->
   <header class="site-header">
-    <div class="container header-inner">
+    <div class="header-left">
       <div class="brand">
-        <span class="brand-mark">CM</span>
-        <div class="brand-text">
-          <strong>Care Mobility</strong>
-          <span>Support Services</span>
-        </div>
+        <div class="brand-name">Care Mobility</div>
+        <div class="brand-tagline">Recurring medical transportation you can depend on</div>
       </div>
-
-      <nav class="nav">
-        <a href="#services">Services</a>
-        <a href="#bio">Our Story</a>
-        <a href="#contact" class="nav-cta">Request a Ride</a>
-      </nav>
     </div>
+    <nav class="header-nav">
+      <a href="#services">Services</a>
+      <a href="#story">Our Story</a>
+      <a class="cta" href="#request">Request a Ride</a>
+    </nav>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <h1>Reliable transportation for recurring medical care.</h1>
+  <!-- Main Content -->
+  <main>
 
-        <p class="lead">
-          Care Mobility specializes in <strong>non-emergency medical transportation</strong> where being on time matters.
-          Dialysis, chemotherapy, physical therapy, infusion treatments, follow-up visits, and more.
-        </p>
+    <!-- Feature Section -->
+    <section class="care-section" id="services">
 
-        <p class="video-note">
-          Watch the short video to understand why Care Mobility exists and how it’s different from rideshare services.
-        </p>
+      <h2 class="section-title">
+        Recurring Medical Transportation, Done Right.
+      </h2>
 
-        <div class="hero-actions">
-          <a href="#contact" class="btn primary">Request Availability</a>
-          <a href="#services" class="btn secondary">Learn More</a>
-        </div>
-
-        <p class="note">
-          Not emergency transportation. If this is a medical emergency, please call 911.
-        </p>
-      </div>
-
-      <!-- Video -->
-      <div class="hero-media">
-        <div class="media-card video-card">
-          <video
-            controls
-            playsinline
-            preload="metadata"
-            poster="assets/video-poster.jpg"
-            aria-label="Care Mobility overview video"
-          >
-            <source src="assets/care-mobility-intro.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div class="media-caption">
-            Dependable, on-time transportation for recurring medical appointments.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services -->
-  <section id="services" class="section">
-    <div class="container">
-      <h2>Non-Emergency Medical Transportation, Done Right</h2>
-      <p class="muted">
+      <p class="section-subtitle">
         Many seniors and patients rely on random rideshare drivers for critical medical appointments.
         Different drivers, different cars, and uncertain timing can create unnecessary stress.
       </p>
 
-      <div class="cards">
-        <div class="card">
-          <h3>Recurring Appointments</h3>
+      <div class="care-cards">
+
+        <div class="care-card dialysis">
+          <div class="care-icon">🩺</div>
+          <h3>Dialysis Visits</h3>
           <p>
-            Designed specifically for ongoing care like dialysis, chemotherapy, radiation therapy,
-            physical therapy, infusion visits, lab work, and post-operative follow-ups.
+            Dialysis happens multiple times a week and cannot be missed.
+            We show up on time, every time, so transportation never puts care at risk.
           </p>
         </div>
 
-        <div class="card">
-          <h3>Consistency & Commitment</h3>
+        <div class="care-card chemo">
+          <div class="care-icon">🎗️</div>
+          <h3>Chemotherapy</h3>
           <p>
-            The same driver whenever possible. Familiar routines.
-            A real sense of accountability for showing up on time.
+            Chemotherapy days are physically and emotionally demanding.
+            Having a familiar, reliable driver removes one critical source of stress.
           </p>
         </div>
 
-        <div class="card">
-          <h3>Clear Communication</h3>
+        <div class="care-card therapy">
+          <div class="care-icon">🧠</div>
+          <h3>Physical & Mental Therapy</h3>
           <p>
-            Simple coordination with patients and families.
-            Confirmations, expectations, and respectful assistance.
+            Consistency is key to recovery.
+            We make transportation the least of your problems so patients can focus on healing.
           </p>
         </div>
+
       </div>
-    </div>
-  </section>
 
-  <!-- Bio -->
-  <section id="bio" class="section alt">
-    <div class="container bio-grid">
-      <div class="bio-photo">
+      <!-- Bottom Image -->
+      <div class="care-image-wrapper">
         <img
-          src="assets/dan-photo.jpg"
-          alt="Photo of Daniel Shim"
+          src="/assets/senior-assist.jpg"
+          alt="Driver assisting senior patient"
+          class="care-bottom-image"
         />
       </div>
 
-      <div class="bio-copy">
-        <h2>Why I Started Care Mobility</h2>
-        <p>
-          I started Care Mobility after noticing how many seniors and patients with recurring
-          health appointments were relying on random rideshare drivers.
-          New driver every time, unpredictable arrivals, and no real commitment.
-        </p>
-        <p>
-          For treatments like dialysis and chemotherapy, reliability is not optional.
-          Care Mobility is built around showing up on time, every time, for people who depend on it.
-        </p>
+    </section>
 
-        <div class="badges">
-          <span>Reliable scheduling</span>
-          <span>Recurring care focus</span>
-          <span>Patient-first mindset</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  </main>
 
-  <!-- Contact -->
-  <section id="contact" class="section">
-    <div class="container">
-      <h2>Request Availability</h2>
-      <p class="muted">
-        Share the appointment type, days, and times. I’ll respond promptly.
-      </p>
-
-      <form
-        name="care-mobility-contact"
-        method="POST"
-        data-netlify="true"
-        class="contact-form"
-      >
-        <input type="hidden" name="form-name" value="care-mobility-contact" />
-
-        <label>
-          Name
-          <input type="text" name="name" required />
-        </label>
-
-        <label>
-          Email
-          <input type="email" name="email" required />
-        </label>
-
-        <label>
-          Phone
-          <input type="tel" name="phone" />
-        </label>
-
-        <label>
-          Appointment Type
-          <input type="text" name="appointment_type" placeholder="Dialysis, chemo, PT, imaging…" />
-        </label>
-
-        <label>
-          Message
-          <textarea name="message" rows="4" required></textarea>
-        </label>
-
-        <button type="submit" class="btn primary">Send Request</button>
-
-        <p class="fineprint">
-          Email alerts are sent to danielshim@gmail.com via Netlify Forms.
-        </p>
-      </form>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <p>© <span id="year"></span> Care Mobility Support Services</p>
-      <p class="muted">Non-Emergency Medical Transportation</p>
-    </div>
-  </footer>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
