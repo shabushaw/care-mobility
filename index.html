@@ -3,154 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Care Mobility</title>
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/assets/cm-favicon.png" />
-  <link rel="apple-touch-icon" href="/assets/cm-favicon.png" />
-
+  <title>Care Mobility Support Services</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="site-header">
-    <div class="brand">
-      <div class="brand-name">Care Mobility</div>
-      <div class="brand-tagline">
-        Recurring medical transportation you can depend on
-      </div>
-    </div>
-
-    <nav class="header-nav">
-      <a href="#services">Services</a>
-      <a href="#about">About</a>
-      <a class="cta" href="#contact">Request a Ride</a>
-    </nav>
-  </header>
-
-  <!-- Hero -->
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-content">
-      <h1>
+    <div class="hero-copy">
+      <h1 class="hero-title">
         Reliable transportation<br />
         for recurring medical care.
       </h1>
-
-      <p>
-        Care Mobility specializes in <strong>non-emergency medical transportation</strong>
-        where being on time matters. Dialysis, chemotherapy, physical therapy,
-        infusion treatments, follow-up visits, and more.
+      <p class="hero-subtitle">
+        Consistent, dependable rides for seniors and patients with ongoing
+        medical appointments.
       </p>
-
-      <p class="hero-note">
-        Watch the short video to understand why Care Mobility exists and how it’s
-        different from rideshare services.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#contact" class="primary-btn">Request Availability</a>
-        <a href="#services" class="secondary-btn">Learn More</a>
-      </div>
-
-      <div class="disclaimer">
-        Not emergency transportation. If this is a medical emergency, please call 911.
-      </div>
     </div>
 
     <div class="hero-video">
-      <video
-        controls
-        preload="none"
-        poster="/assets/grandmadialysis.jpg"
-      >
-        <source src="/assets/care-mobility-intro.mp4" type="video/mp4" />
+      <video controls preload="none" poster="assets/video-thumbnail.jpg">
+        <source src="assets/care-mobility.mp4" type="video/mp4" />
       </video>
-      <div class="video-caption">
+      <p class="video-caption">
         Dependable, on-time transportation for recurring medical appointments.
-      </div>
-    </div>
-  </section>
-
-  <!-- Services -->
-  <section class="care-section" id="services">
-
-    <h2 class="section-title">
-      Recurring Medical Transportation, Done Right.
-    </h2>
-
-    <p class="section-subtitle">
-      Many seniors and patients rely on random rideshare drivers for critical medical
-      appointments. Different drivers, different cars, and uncertain timing can create
-      unnecessary stress.
-    </p>
-
-    <div class="care-cards">
-      <div class="care-card dialysis">
-        <div class="care-icon">🩺</div>
-        <h3>Dialysis Visits</h3>
-        <p>
-          Dialysis happens multiple times a week and cannot be missed.
-          We show up on time, every time, so transportation never puts care at risk.
-        </p>
-      </div>
-
-      <div class="care-card chemo">
-        <div class="care-icon">🎗️</div>
-        <h3>Chemotherapy</h3>
-        <p>
-          Chemotherapy days are physically and emotionally demanding.
-          Having a familiar, reliable driver removes one critical source of stress.
-        </p>
-      </div>
-
-      <div class="care-card therapy">
-        <div class="care-icon">🧠</div>
-        <h3>Physical & Mental Therapy</h3>
-        <p>
-          Consistency is key to recovery.
-          We make transportation the least of your problems so patients can focus on healing.
-        </p>
-      </div>
-    </div>
-
-    <img
-      src="/assets/senior-assist.jpg"
-      alt="Driver assisting senior"
-      class="care-bottom-image"
-    />
-
-  </section>
-
-  <!-- About / Bio -->
-  <section class="bio-section" id="about">
-    <img src="/assets/dan-photo.jpg" alt="Care Mobility Founder" />
-    <div>
-      <h3>Built Around Showing Up</h3>
-      <p>
-        Care Mobility was created to solve a simple but critical problem:
-        people with recurring medical needs need transportation they can trust.
-        Familiar drivers, consistent schedules, and real accountability.
       </p>
     </div>
   </section>
 
-  <!-- Contact -->
-  <section class="contact-section" id="contact">
-    <h2>Request Availability</h2>
+  <!-- MIDDLE VALUE SECTION -->
+  <section class="services">
+    <div class="services-header">
+      <h2>Recurring Medical Transportation, Done Right.</h2>
+      <p>
+        Many seniors and patients rely on random rideshare drivers for
+        critical medical appointments. Different drivers, different cars,
+        and uncertain timing can create unnecessary stress.
+      </p>
+    </div>
 
-    <form
-      action="mailto:danielshim@gmail.com"
-      method="post"
-      enctype="text/plain"
-      class="contact-form"
-    >
-      <input type="text" name="Name" placeholder="Your name" required />
-      <input type="email" name="Email" placeholder="Your email" required />
-      <input type="text" name="Service" placeholder="Type of appointment (e.g. Dialysis)" />
-      <textarea name="Message" placeholder="Tell us about your transportation needs"></textarea>
-      <button type="submit">Send Request</button>
-    </form>
+    <div class="service-cards">
+      <div class="service-card blue">
+        <h3>Dialysis Visits</h3>
+        <p>
+          Dialysis happens multiple times a week and cannot be missed.
+          We show up on time, every time, so transportation never puts
+          care at risk.
+        </p>
+      </div>
+
+      <div class="service-card peach">
+        <h3>Chemotherapy</h3>
+        <p>
+          Chemotherapy days are physically and emotionally demanding.
+          Having a familiar, reliable driver removes one critical
+          source of stress.
+        </p>
+      </div>
+
+      <div class="service-card green">
+        <h3>Physical & Mental Therapy</h3>
+        <p>
+          Consistency is key to recovery. We make transportation the
+          least of your problems so patients can focus on healing.
+        </p>
+      </div>
+    </div>
+
+    <!-- IMAGE AT BOTTOM OF MIDDLE SECTION -->
+    <div class="services-image">
+      <img
+        src="assets/senior-assist.jpg"
+        alt="Senior receiving assistance entering vehicle"
+      />
+    </div>
+  </section>
+
+  <!-- FOUNDER / BIO -->
+  <section class="founder-section">
+    <img
+      src="assets/daniel.jpg"
+      alt="Daniel Shim"
+      class="founder-photo"
+    />
+
+    <div class="founder-content">
+      <h2>Built Around Showing Up</h2>
+      <p>
+        Care Mobility was created because too many seniors were missing or
+        stressing over critical medical appointments. Reliable transportation
+        existed, but dependable availability they could truly count on did not.
+      </p>
+      <p>
+        I built Care Mobility to solve that gap with familiar drivers,
+        consistent schedules, and accountability that patients and families
+        can rely on week after week.
+      </p>
+    </div>
   </section>
 
 </body>
