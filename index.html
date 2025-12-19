@@ -15,26 +15,27 @@
 
   <!-- Header -->
   <header class="site-header">
-    <div class="header-left">
-      <div class="brand">
-        <div class="brand-name">Care Mobility</div>
-        <div class="brand-tagline">
-          Recurring medical transportation you can depend on
-        </div>
+    <div class="brand">
+      <div class="brand-name">Care Mobility</div>
+      <div class="brand-tagline">
+        Recurring medical transportation you can depend on
       </div>
     </div>
 
     <nav class="header-nav">
       <a href="#services">Services</a>
-      <a href="#story">Our Story</a>
-      <a class="cta" href="#request">Request a Ride</a>
+      <a href="#about">About</a>
+      <a class="cta" href="#contact">Request a Ride</a>
     </nav>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
-      <h1>Reliable transportation for recurring medical care.</h1>
+      <h1>
+        Reliable transportation<br />
+        for recurring medical care.
+      </h1>
 
       <p>
         Care Mobility specializes in <strong>non-emergency medical transportation</strong>
@@ -48,7 +49,7 @@
       </p>
 
       <div class="hero-actions">
-        <a href="#request" class="primary-btn">Request Availability</a>
+        <a href="#contact" class="primary-btn">Request Availability</a>
         <a href="#services" class="secondary-btn">Learn More</a>
       </div>
 
@@ -60,7 +61,7 @@
     <div class="hero-video">
       <video
         controls
-        preload="metadata"
+        preload="none"
         poster="/assets/grandmadialysis.jpg"
       >
         <source src="/assets/care-mobility-intro.mp4" type="video/mp4" />
@@ -71,7 +72,7 @@
     </div>
   </section>
 
-  <!-- Mid Section -->
+  <!-- Services -->
   <section class="care-section" id="services">
 
     <h2 class="section-title">
@@ -85,7 +86,6 @@
     </p>
 
     <div class="care-cards">
-
       <div class="care-card dialysis">
         <div class="care-icon">🩺</div>
         <h3>Dialysis Visits</h3>
@@ -106,23 +106,51 @@
 
       <div class="care-card therapy">
         <div class="care-icon">🧠</div>
-        <h3>Physical &amp; Mental Therapy</h3>
+        <h3>Physical & Mental Therapy</h3>
         <p>
           Consistency is key to recovery.
           We make transportation the least of your problems so patients can focus on healing.
         </p>
       </div>
-
     </div>
 
-    <div class="care-image-wrapper">
-      <img
-        src="/assets/senior-assist.jpg"
-        alt="Driver assisting senior patient"
-        class="care-bottom-image"
-      />
-    </div>
+    <img
+      src="/assets/senior-assist.jpg"
+      alt="Driver assisting senior"
+      class="care-bottom-image"
+    />
 
+  </section>
+
+  <!-- About / Bio -->
+  <section class="bio-section" id="about">
+    <img src="/assets/dan-photo.jpg" alt="Care Mobility Founder" />
+    <div>
+      <h3>Built Around Showing Up</h3>
+      <p>
+        Care Mobility was created to solve a simple but critical problem:
+        people with recurring medical needs need transportation they can trust.
+        Familiar drivers, consistent schedules, and real accountability.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact-section" id="contact">
+    <h2>Request Availability</h2>
+
+    <form
+      action="mailto:danielshim@gmail.com"
+      method="post"
+      enctype="text/plain"
+      class="contact-form"
+    >
+      <input type="text" name="Name" placeholder="Your name" required />
+      <input type="email" name="Email" placeholder="Your email" required />
+      <input type="text" name="Service" placeholder="Type of appointment (e.g. Dialysis)" />
+      <textarea name="Message" placeholder="Tell us about your transportation needs"></textarea>
+      <button type="submit">Send Request</button>
+    </form>
   </section>
 
 </body>
