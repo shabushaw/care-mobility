@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Care Mobility</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/cm-favicon.png" />
+  <link rel="apple-touch-icon" href="/assets/cm-favicon.png" />
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -13,9 +18,12 @@
     <div class="header-left">
       <div class="brand">
         <div class="brand-name">Care Mobility</div>
-        <div class="brand-tagline">Recurring medical transportation you can depend on</div>
+        <div class="brand-tagline">
+          Recurring medical transportation you can depend on
+        </div>
       </div>
     </div>
+
     <nav class="header-nav">
       <a href="#services">Services</a>
       <a href="#story">Our Story</a>
@@ -23,64 +31,99 @@
     </nav>
   </header>
 
-  <!-- Main Content -->
-  <main>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Reliable transportation for recurring medical care.</h1>
 
-    <!-- Feature Section -->
-    <section class="care-section" id="services">
-
-      <h2 class="section-title">
-        Recurring Medical Transportation, Done Right.
-      </h2>
-
-      <p class="section-subtitle">
-        Many seniors and patients rely on random rideshare drivers for critical medical appointments.
-        Different drivers, different cars, and uncertain timing can create unnecessary stress.
+      <p>
+        Care Mobility specializes in <strong>non-emergency medical transportation</strong>
+        where being on time matters. Dialysis, chemotherapy, physical therapy,
+        infusion treatments, follow-up visits, and more.
       </p>
 
-      <div class="care-cards">
+      <p class="hero-note">
+        Watch the short video to understand why Care Mobility exists and how it’s
+        different from rideshare services.
+      </p>
 
-        <div class="care-card dialysis">
-          <div class="care-icon">🩺</div>
-          <h3>Dialysis Visits</h3>
-          <p>
-            Dialysis happens multiple times a week and cannot be missed.
-            We show up on time, every time, so transportation never puts care at risk.
-          </p>
-        </div>
-
-        <div class="care-card chemo">
-          <div class="care-icon">🎗️</div>
-          <h3>Chemotherapy</h3>
-          <p>
-            Chemotherapy days are physically and emotionally demanding.
-            Having a familiar, reliable driver removes one critical source of stress.
-          </p>
-        </div>
-
-        <div class="care-card therapy">
-          <div class="care-icon">🧠</div>
-          <h3>Physical & Mental Therapy</h3>
-          <p>
-            Consistency is key to recovery.
-            We make transportation the least of your problems so patients can focus on healing.
-          </p>
-        </div>
-
+      <div class="hero-actions">
+        <a href="#request" class="primary-btn">Request Availability</a>
+        <a href="#services" class="secondary-btn">Learn More</a>
       </div>
 
-      <!-- Bottom Image -->
-      <div class="care-image-wrapper">
-        <img
-          src="/assets/senior-assist.jpg"
-          alt="Driver assisting senior patient"
-          class="care-bottom-image"
-        />
+      <div class="disclaimer">
+        Not emergency transportation. If this is a medical emergency, please call 911.
+      </div>
+    </div>
+
+    <div class="hero-video">
+      <video
+        controls
+        preload="metadata"
+        poster="/assets/grandmadialysis.jpg"
+      >
+        <source src="/assets/care-mobility-intro.mp4" type="video/mp4" />
+      </video>
+      <div class="video-caption">
+        Dependable, on-time transportation for recurring medical appointments.
+      </div>
+    </div>
+  </section>
+
+  <!-- Mid Section -->
+  <section class="care-section" id="services">
+
+    <h2 class="section-title">
+      Recurring Medical Transportation, Done Right.
+    </h2>
+
+    <p class="section-subtitle">
+      Many seniors and patients rely on random rideshare drivers for critical medical
+      appointments. Different drivers, different cars, and uncertain timing can create
+      unnecessary stress.
+    </p>
+
+    <div class="care-cards">
+
+      <div class="care-card dialysis">
+        <div class="care-icon">🩺</div>
+        <h3>Dialysis Visits</h3>
+        <p>
+          Dialysis happens multiple times a week and cannot be missed.
+          We show up on time, every time, so transportation never puts care at risk.
+        </p>
       </div>
 
-    </section>
+      <div class="care-card chemo">
+        <div class="care-icon">🎗️</div>
+        <h3>Chemotherapy</h3>
+        <p>
+          Chemotherapy days are physically and emotionally demanding.
+          Having a familiar, reliable driver removes one critical source of stress.
+        </p>
+      </div>
 
-  </main>
+      <div class="care-card therapy">
+        <div class="care-icon">🧠</div>
+        <h3>Physical &amp; Mental Therapy</h3>
+        <p>
+          Consistency is key to recovery.
+          We make transportation the least of your problems so patients can focus on healing.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="care-image-wrapper">
+      <img
+        src="/assets/senior-assist.jpg"
+        alt="Driver assisting senior patient"
+        class="care-bottom-image"
+      />
+    </div>
+
+  </section>
 
 </body>
 </html>
