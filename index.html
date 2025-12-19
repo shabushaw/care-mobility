@@ -16,18 +16,16 @@
         for recurring medical care.
       </h1>
       <p class="hero-subtitle">
-        Consistent, dependable rides for seniors and patients with ongoing
-        medical appointments.
+        Consistent, dependable rides for seniors and patients with
+        ongoing medical appointments.
       </p>
     </div>
 
-    <div class="hero-video">
-      <video controls preload="none" poster="assets/video-thumbnail.jpg">
-        <source src="assets/care-mobility.mp4" type="video/mp4" />
-      </video>
-      <p class="video-caption">
-        Dependable, on-time transportation for recurring medical appointments.
-      </p>
+    <div class="hero-image">
+      <img
+        src="assets/Grandmadialysis.png"
+        alt="Senior being transported to dialysis appointment"
+      />
     </div>
   </section>
 
@@ -70,7 +68,6 @@
       </div>
     </div>
 
-    <!-- IMAGE AT BOTTOM OF MIDDLE SECTION -->
     <div class="services-image">
       <img
         src="assets/senior-assist.jpg"
@@ -79,26 +76,60 @@
     </div>
   </section>
 
-  <!-- FOUNDER / BIO -->
+  <!-- FOUNDER / BIO (MUCH BIGGER) -->
   <section class="founder-section">
-    <img
-      src="assets/daniel.jpg"
-      alt="Daniel Shim"
-      class="founder-photo"
-    />
+    <div class="founder-inner">
+      <img
+        src="assets/daniel.jpg"
+        alt="Daniel Shim"
+        class="founder-photo"
+      />
 
-    <div class="founder-content">
-      <h2>Built Around Showing Up</h2>
+      <div class="founder-content">
+        <h2>Built Around Showing Up</h2>
+        <p class="founder-lead">
+          Care Mobility exists because too many seniors were missing or
+          stressing over critical medical appointments — not because care
+          wasn’t available, but because dependable transportation wasn’t.
+        </p>
+        <p>
+          I saw firsthand how inconsistent pickup times, unfamiliar drivers,
+          and last-minute cancellations created anxiety for patients and
+          families already dealing with serious health challenges.
+        </p>
+        <p>
+          Care Mobility was built to be different. Familiar drivers.
+          Consistent schedules. Accountability you can count on — week
+          after week, appointment after appointment.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="contact">
+    <div class="contact-inner">
+      <h2>Request Transportation or Learn More</h2>
       <p>
-        Care Mobility was created because too many seniors were missing or
-        stressing over critical medical appointments. Reliable transportation
-        existed, but dependable availability they could truly count on did not.
+        If you or a loved one needs reliable, recurring medical
+        transportation, reach out below and we’ll follow up personally.
       </p>
-      <p>
-        I built Care Mobility to solve that gap with familiar drivers,
-        consistent schedules, and accountability that patients and families
-        can rely on week after week.
-      </p>
+
+      <form name="contact" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="contact" />
+
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Email address" required />
+        <input type="tel" name="phone" placeholder="Phone number" />
+        <textarea
+          name="message"
+          rows="4"
+          placeholder="Tell us about the transportation needs"
+          required
+        ></textarea>
+
+        <button type="submit">Submit</button>
+      </form>
     </div>
   </section>
 
