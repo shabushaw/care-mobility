@@ -34,6 +34,7 @@ body {
 
 .hero-subtitle {
   font-size: 20px;
+  line-height: 1.6;
   color: #334155;
 }
 
@@ -59,6 +60,7 @@ body {
 .services-header p {
   max-width: 760px;
   font-size: 18px;
+  line-height: 1.6;
   color: #475569;
   margin-bottom: 48px;
 }
@@ -81,6 +83,7 @@ body {
 
 .service-card p {
   font-size: 17px;
+  line-height: 1.5;
   color: #334155;
 }
 
@@ -135,9 +138,17 @@ body {
   margin-bottom: 24px;
 }
 
+/* ✅ TYPOGRAPHY UNIFICATION */
+.founder-content p,
 .founder-lead {
-  font-size: 26px;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #0f172a;
   margin-bottom: 20px;
+}
+
+.founder-lead {
+  font-weight: 500;
 }
 
 /* CONTACT */
@@ -179,7 +190,7 @@ body {
   padding: 14px;
   font-weight: 600;
   background: #0f172a;
-  color: #fff;
+  color: #ffffff;
   border-radius: 8px;
   border: none;
   cursor: pointer;
