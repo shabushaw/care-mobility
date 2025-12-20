@@ -28,7 +28,10 @@
     </div>
 
     <div class="hero-image">
-      <img src="assets/grandmadialysis.jpg" alt="Dialysis transportation" />
+      <img
+        src="assets/grandmadialysis.jpg"
+        alt="Senior being transported to a dialysis appointment"
+      />
     </div>
   </section>
 
@@ -37,9 +40,9 @@
     <div class="services-header">
       <h2>Recurring Medical Transportation, Done Right.</h2>
       <p>
-        Many seniors and patients rely on inconsistent transportation
-        for critical medical appointments. Different drivers, uncertain
-        timing, and last-minute cancellations create unnecessary stress.
+        Many seniors and patients rely on transportation not just once,
+        but multiple times each week. When reliability breaks down,
+        the impact compounds appointment after appointment.
       </p>
     </div>
 
@@ -47,56 +50,78 @@
       <div class="service-card blue">
         <div class="card-icon">🩺</div>
         <h3>Dialysis</h3>
-        <p>Time-sensitive treatments multiple times per week.</p>
+        <p>
+          Time-sensitive treatments multiple times per week where
+          consistency and punctuality are critical.
+        </p>
       </div>
 
       <div class="service-card peach">
         <div class="card-icon">💉</div>
         <h3>Cancer & Infusion Therapy</h3>
-        <p>Recurring oncology and infusion center visits.</p>
+        <p>
+          Recurring oncology and infusion appointments at the same
+          care centers over extended periods.
+        </p>
       </div>
 
       <div class="service-card green">
         <div class="card-icon">♿</div>
         <h3>Rehabilitation & Therapy</h3>
-        <p>PT, OT, speech, and pulmonary therapy.</p>
+        <p>
+          Physical, occupational, speech, and pulmonary therapy
+          requiring repeat visits week after week.
+        </p>
       </div>
 
       <div class="service-card blue">
         <div class="card-icon">☢️</div>
         <h3>Radiation Therapy</h3>
-        <p>Daily treatments requiring precise scheduling.</p>
+        <p>
+          Daily treatments over multiple weeks where even small delays
+          can disrupt care schedules.
+        </p>
       </div>
 
       <div class="service-card peach">
         <div class="card-icon">🤝</div>
         <h3>Substance Use Treatment</h3>
-        <p>Consistent attendance for outpatient programs.</p>
+        <p>
+          Outpatient programs that depend on consistent attendance
+          and reliable transportation routines.
+        </p>
       </div>
 
       <div class="service-card green">
         <div class="card-icon">🏥</div>
         <h3>Post-Op Rehab</h3>
-        <p>Ongoing recovery visits after surgery.</p>
+        <p>
+          Recovery after surgery often involves multiple weekly visits
+          to the same rehabilitation facility.
+        </p>
       </div>
     </div>
 
     <div class="services-image">
-      <img src="assets/senior-assist.jpg" alt="Senior assistance" />
+      <img
+        src="assets/senior-assist.jpg"
+        alt="Senior receiving assistance entering a vehicle"
+      />
     </div>
   </section>
 
-  <!-- RIDESHARE -->
+  <!-- RIDESHARE COMPARISON -->
   <section class="rideshare">
     <div class="rideshare-inner">
       <h2>Care Mobility vs Rideshare</h2>
 
       <p class="rideshare-intro">
-        Uber and Lyft can be convenient and lower cost for everyday trips.
-        For recurring medical care, reliability and consistency matter more.
+        Rideshare services can work well for one-off trips. But when
+        transportation is needed again and again — often multiple times
+        each week — reliability, familiarity, and routine matter more
+        than convenience.
       </p>
 
-      <!-- COMPARISON TABLE -->
       <div class="comparison-table">
         <div class="comparison-header">
           <div></div>
@@ -140,16 +165,30 @@
   <!-- FOUNDER -->
   <section class="founder-section">
     <div class="founder-inner">
-      <img src="assets/daniel.jpg" class="founder-photo" alt="Founder" />
+      <div class="founder-photo-wrap">
+        <img
+          src="assets/daniel.jpg"
+          alt="Daniel Shim"
+          class="founder-photo"
+        />
+      </div>
+
       <div class="founder-content">
         <h2>Built Around Showing Up</h2>
-        <p>
-          Care Mobility exists because dependable transportation was
-          missing for seniors who needed it most.
+
+        <p class="founder-lead">
+          Care Mobility exists because many seniors weren’t struggling
+          with a single ride — they were struggling with the same ride,
+          over and over again. Dialysis, therapy, oncology, and recovery
+          appointments happen multiple times a week, often at the same
+          clinic, on the same schedule.
         </p>
+
         <p>
-          Familiar drivers. Consistent schedules. Accountability you
-          can count on week after week.
+          Care Mobility is built specifically for these recurring trips.
+          Familiar drivers, predictable pickup times, and dependable
+          routines mean patients and families can count on the same
+          experience — not just once, but every time.
         </p>
       </div>
     </div>
@@ -158,24 +197,42 @@
   <!-- CONTACT -->
   <section class="contact">
     <div class="contact-inner">
+
       <div class="phone-cta">
         <p>Prefer to speak with someone now?</p>
         <a href="tel:16178216429">(617) 821-6429</a>
       </div>
 
-      <form name="contact" method="POST" data-netlify="true">
+      <h2>Request Transportation or Learn More</h2>
+
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
         <input type="hidden" name="form-name" value="contact" />
+        <input type="hidden" name="bot-field" />
         <input type="hidden" name="redirect" value="/thanks.html" />
 
         <input type="text" name="name" placeholder="Your name" required />
         <input type="email" name="email" placeholder="Email address" required />
-        <textarea name="message" rows="4" placeholder="How can we help?" required></textarea>
+        <input type="tel" name="phone" placeholder="Phone number" />
+        <textarea
+          name="message"
+          rows="4"
+          placeholder="Tell us about the transportation needs"
+          required
+        ></textarea>
+
         <button type="submit">Submit</button>
       </form>
 
       <p class="hipaa-disclaimer">
-        Please do not include medical diagnoses or protected health information.
+        Please do not include medical diagnoses or protected health
+        information (PHI) in this form.
       </p>
+
     </div>
   </section>
 
