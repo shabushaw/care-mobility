@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Care Mobility Support Services</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/cm-favicon.png" />
+
+  <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -29,7 +34,7 @@
     </div>
   </section>
 
-  <!-- SERVICES / MIDDLE SECTION -->
+  <!-- SERVICES -->
   <section class="services">
     <div class="services-header">
       <h2>Recurring Medical Transportation, Done Right.</h2>
@@ -42,26 +47,56 @@
 
     <div class="service-cards">
       <div class="service-card blue">
-        <h3>Dialysis Visits</h3>
+        <div class="card-icon">🩺</div>
+        <h3>Dialysis</h3>
         <p>
-          Dialysis happens multiple times per week and cannot be missed.
-          We provide consistent, on-time transportation you can rely on.
+          Predictable, time-sensitive treatments multiple times per week.
+          Transportation must be reliable and consistent.
         </p>
       </div>
 
       <div class="service-card peach">
-        <h3>Chemotherapy</h3>
+        <div class="card-icon">💉</div>
+        <h3>Cancer & Infusion Therapy</h3>
         <p>
-          Treatment days are physically and emotionally demanding.
-          Familiar drivers and predictable schedules reduce stress.
+          Chemotherapy, radiation, and infusion treatments with recurring
+          visits to the same care center.
         </p>
       </div>
 
       <div class="service-card green">
-        <h3>Physical & Mental Therapy</h3>
+        <div class="card-icon">♿</div>
+        <h3>Rehabilitation & Therapy</h3>
         <p>
-          Consistency is essential for recovery. Transportation should
-          support care — not disrupt it.
+          Physical, occupational, speech, and pulmonary therapy requiring
+          repeat clinic visits over weeks or months.
+        </p>
+      </div>
+
+      <div class="service-card blue">
+        <div class="card-icon">🧪</div>
+        <h3>Infusion Therapy</h3>
+        <p>
+          Ongoing infusion treatments for chronic conditions with
+          predictable schedules at dedicated centers.
+        </p>
+      </div>
+
+      <div class="service-card peach">
+        <div class="card-icon">🤝</div>
+        <h3>Substance Use Treatment</h3>
+        <p>
+          Dependable transportation for outpatient treatment programs
+          where consistent attendance is essential.
+        </p>
+      </div>
+
+      <div class="service-card green">
+        <div class="card-icon">🏥</div>
+        <h3>Post-Op Rehab</h3>
+        <p>
+          Recovery after surgery often requires multiple weekly visits
+          to the same rehabilitation facility.
         </p>
       </div>
     </div>
@@ -74,7 +109,7 @@
     </div>
   </section>
 
-  <!-- FOUNDER / BIO -->
+  <!-- FOUNDER -->
   <section class="founder-section">
     <div class="founder-inner">
       <div class="founder-photo-wrap">
@@ -93,11 +128,6 @@
           care wasn’t available, but because dependable transportation wasn’t.
         </p>
         <p>
-          I saw how unreliable pickup times, unfamiliar drivers, and
-          cancellations created anxiety for patients and families already
-          facing serious health challenges.
-        </p>
-        <p>
           Care Mobility was built to be different. Familiar drivers.
           Consistent schedules. Accountability you can count on —
           week after week.
@@ -110,50 +140,26 @@
   <section class="contact">
     <div class="contact-inner">
 
-      <!-- PHONE CTA -->
       <div class="phone-cta">
         <p>Prefer to speak with someone now?</p>
         <a href="tel:16178216429">(617) 821-6429</a>
       </div>
 
       <h2>Request Transportation or Learn More</h2>
-      <p>
-        If you or a loved one needs reliable, recurring medical
-        transportation, submit the form below and we’ll follow up personally.
-      </p>
 
-      <!-- NETLIFY FORM -->
       <form
         name="contact"
         method="POST"
         data-netlify="true"
         netlify-honeypot="bot-field"
       >
-        <!-- REQUIRED NETLIFY FIELDS -->
         <input type="hidden" name="form-name" value="contact" />
         <input type="hidden" name="bot-field" />
         <input type="hidden" name="redirect" value="/thanks.html" />
 
-        <input
-          type="text"
-          name="name"
-          placeholder="Your name"
-          required
-        />
-
-        <input
-          type="email"
-          name="email"
-          placeholder="Email address"
-          required
-        />
-
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Phone number"
-        />
-
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Email address" required />
+        <input type="tel" name="phone" placeholder="Phone number" />
         <textarea
           name="message"
           rows="4"
@@ -164,10 +170,9 @@
         <button type="submit">Submit</button>
       </form>
 
-      <!-- HIPAA DISCLAIMER -->
       <p class="hipaa-disclaimer">
-        Please do not include medical diagnoses, treatment details,
-        or other protected health information (PHI) in this form.
+        Please do not include medical diagnoses or protected health
+        information (PHI) in this form.
       </p>
 
     </div>

@@ -1,6 +1,3 @@
-/* =========================
-   RESET & BASE
-========================= */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -14,17 +11,14 @@ body {
   background: #ffffff;
 }
 
-/* =========================
-   HERO
-========================= */
+/* HERO */
 .hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 48px;
   max-width: 1200px;
   margin: 0 auto;
   padding: 80px 24px;
+  display: flex;
+  gap: 48px;
+  align-items: center;
 }
 
 .hero-copy {
@@ -34,13 +28,12 @@ body {
 .hero-title {
   font-size: 64px;
   font-weight: 800;
-  line-height: 1.05; /* tight line spacing */
+  line-height: 1.05;
   margin-bottom: 20px;
 }
 
 .hero-subtitle {
   font-size: 20px;
-  line-height: 1.5;
   color: #334155;
 }
 
@@ -48,12 +41,9 @@ body {
   width: 520px;
   max-width: 100%;
   border-radius: 24px;
-  object-fit: cover;
 }
 
-/* =========================
-   SERVICES / MIDDLE SECTION
-========================= */
+/* SERVICES */
 .services {
   max-width: 1200px;
   margin: 80px auto;
@@ -67,8 +57,8 @@ body {
 }
 
 .services-header p {
-  font-size: 18px;
   max-width: 760px;
+  font-size: 18px;
   color: #475569;
   margin-bottom: 48px;
 }
@@ -80,32 +70,34 @@ body {
 }
 
 .service-card {
-  border-radius: 20px;
   padding: 32px;
+  border-radius: 20px;
 }
 
 .service-card h3 {
   font-size: 22px;
-  font-weight: 700;
   margin-bottom: 12px;
 }
 
 .service-card p {
   font-size: 17px;
-  line-height: 1.5;
   color: #334155;
 }
 
-.service-card.blue {
-  background: #f1f7ff;
-}
+.service-card.blue { background: #f1f7ff; }
+.service-card.peach { background: #fff1ed; }
+.service-card.green { background: #f2fbf2; }
 
-.service-card.peach {
-  background: #fff1ed;
-}
-
-.service-card.green {
-  background: #f2fbf2;
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 22px;
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .services-image {
@@ -115,15 +107,11 @@ body {
 .services-image img {
   width: 100%;
   border-radius: 24px;
-  object-fit: cover;
 }
 
-/* =========================
-   FOUNDER / BIO (LARGE)
-========================= */
+/* FOUNDER */
 .founder-section {
   background: #f8fafc;
-  margin: 120px 0;
   padding: 120px 24px;
 }
 
@@ -132,13 +120,7 @@ body {
   margin: 0 auto;
   display: flex;
   gap: 72px;
-  align-items: center; /* centers photo vertically */
-}
-
-.founder-photo-wrap {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
+  align-items: center;
 }
 
 .founder-photo {
@@ -150,30 +132,17 @@ body {
 
 .founder-content h2 {
   font-size: 48px;
-  font-weight: 800;
   margin-bottom: 24px;
 }
 
 .founder-lead {
   font-size: 26px;
-  font-weight: 500;
-  line-height: 1.4;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
-.founder-content p {
-  font-size: 20px;
-  line-height: 1.6;
-  margin-bottom: 18px;
-  max-width: 720px;
-}
-
-/* =========================
-   CONTACT FORM
-========================= */
+/* CONTACT */
 .contact {
   padding: 100px 24px;
-  background: #ffffff;
 }
 
 .contact-inner {
@@ -181,16 +150,15 @@ body {
   margin: 0 auto;
 }
 
-.contact h2 {
-  font-size: 40px;
-  font-weight: 800;
-  margin-bottom: 16px;
+.phone-cta {
+  margin-bottom: 32px;
 }
 
-.contact p {
-  font-size: 18px;
-  color: #475569;
-  margin-bottom: 32px;
+.phone-cta a {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  text-decoration: none;
 }
 
 .contact form {
@@ -207,34 +175,27 @@ body {
   border: 1px solid #cbd5e1;
 }
 
-.contact input:focus,
-.contact textarea:focus {
-  outline: none;
-  border-color: #0f172a;
-}
-
 .contact button {
   padding: 14px;
-  font-size: 16px;
   font-weight: 600;
-  border: none;
-  border-radius: 8px;
   background: #0f172a;
-  color: #ffffff;
+  color: #fff;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
 }
 
-.contact button:hover {
-  background: #020617;
+.hipaa-disclaimer {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 16px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* RESPONSIVE */
 @media (max-width: 900px) {
-  .hero {
+  .hero,
+  .founder-inner {
     flex-direction: column;
-    align-items: flex-start;
   }
 
   .hero-title {
@@ -243,15 +204,5 @@ body {
 
   .service-cards {
     grid-template-columns: 1fr;
-  }
-
-  .founder-inner {
-    flex-direction: column;
-    text-align: left;
-  }
-
-  .founder-photo {
-    width: 220px;
-    height: 220px;
   }
 }
