@@ -112,6 +112,63 @@ body {
   border-radius: 24px;
 }
 
+/* RIDESHARE */
+.rideshare {
+  padding: 100px 24px;
+}
+
+.rideshare-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.rideshare h2 {
+  font-size: 44px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.rideshare-intro {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #475569;
+  max-width: 760px;
+  margin-bottom: 48px;
+}
+
+.rideshare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.rideshare-item {
+  background: #f8fafc;
+  border-radius: 20px;
+  padding: 28px;
+}
+
+.rideshare-item h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.rideshare-item p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #334155;
+}
+
+.rideshare-item.highlight {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.rideshare-item.highlight h3,
+.rideshare-item.highlight p {
+  color: #ffffff;
+}
+
 /* FOUNDER */
 .founder-section {
   background: #f8fafc;
@@ -138,7 +195,6 @@ body {
   margin-bottom: 24px;
 }
 
-/* ✅ TYPOGRAPHY UNIFICATION */
 .founder-content p,
 .founder-lead {
   font-size: 20px;
@@ -213,7 +269,8 @@ body {
     font-size: 48px;
   }
 
-  .service-cards {
+  .service-cards,
+  .rideshare-grid {
     grid-template-columns: 1fr;
   }
 }
