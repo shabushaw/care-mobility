@@ -3,21 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thank You | Care Mobility</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Thank You – Care Mobility</title>
+
+  <link rel="icon" href="/assets/cm-favicon.png" type="image/png" />
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+      background: #f8fafc;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 48px;
+      border-radius: 20px;
+      max-width: 520px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #334155;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 24px;
+      color: #0f172a;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-
-  <section style="max-width:600px;margin:120px auto;padding:0 24px;">
+  <div class="card">
     <h1>Thank you</h1>
     <p>
-      We’ve received your request and will follow up shortly.
+      We’ve received your message and will follow up shortly.
+      If this is time-sensitive, please feel free to call us directly.
     </p>
-    <p>
-      If this is urgent, please call
-      <a href="tel:16178216429">(617) 821-6429</a>.
-    </p>
-  </section>
-
+    <a href="/">← Back to Care Mobility</a>
+  </div>
 </body>
 </html>
