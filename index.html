@@ -23,8 +23,8 @@
 
     <div class="hero-image">
       <img
-        src="assets/Grandmadialysis.png"
-        alt="Senior being transported to dialysis appointment"
+        src="assets/grandmadialysis.jpg"
+        alt="Senior being transported to a dialysis appointment"
       />
     </div>
   </section>
@@ -71,12 +71,12 @@
     <div class="services-image">
       <img
         src="assets/senior-assist.jpg"
-        alt="Senior receiving assistance entering vehicle"
+        alt="Senior receiving assistance entering a vehicle"
       />
     </div>
   </section>
 
-  <!-- FOUNDER / BIO -->
+  <!-- FOUNDER -->
   <section class="founder-section">
     <div class="founder-inner">
       <div class="founder-photo-wrap">
@@ -111,18 +111,53 @@
   <!-- CONTACT -->
   <section class="contact">
     <div class="contact-inner">
+
+      <!-- PHONE CTA -->
+      <div class="phone-cta">
+        <p>Prefer to speak with someone now?</p>
+        <a href="tel:16178216429">Call (617) 821-6429</a>
+      </div>
+
       <h2>Request Transportation or Learn More</h2>
       <p>
         If you or a loved one needs reliable, recurring medical
         transportation, reach out below and we’ll follow up personally.
       </p>
 
-      <form name="contact" method="POST" data-netlify="true">
+      <!-- NETLIFY FORM -->
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <!-- REQUIRED NETLIFY FIELDS -->
         <input type="hidden" name="form-name" value="contact" />
+        <input type="hidden" name="bot-field" />
 
-        <input type="text" name="name" placeholder="Your name" required />
-        <input type="email" name="email" placeholder="Email address" required />
-        <input type="tel" name="phone" placeholder="Phone number" />
+        <!-- Helps with email replies + auto-response -->
+        <input type="hidden" name="subject" value="New Care Mobility Inquiry" />
+
+        <input
+          type="text"
+          name="name"
+          placeholder="Your name"
+          required
+        />
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Email address"
+          required
+        />
+
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Phone number"
+        />
+
         <textarea
           name="message"
           rows="4"
@@ -132,6 +167,15 @@
 
         <button type="submit">Submit</button>
       </form>
+
+      <!-- HIPAA-SAFE DISCLAIMER -->
+      <p class="hipaa-disclaimer">
+        Please do not include medical diagnoses, treatment details, or
+        other sensitive health information in this form. This form is
+        not intended for the transmission of protected health
+        information (PHI).
+      </p>
+
     </div>
   </section>
 
