@@ -1,3 +1,6 @@
+/* =========================
+   RESET
+========================= */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,20 +15,24 @@ body {
   line-height: 1.6;
 }
 
-/* CONTAINER */
+/* =========================
+   GLOBAL CONTAINER
+========================= */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 80px 24px;
 }
 
-/* BRAND HEADER */
+/* =========================
+   BRAND HEADER
+========================= */
 .brand-header {
   position: sticky;
   top: 0;
+  z-index: 1000;
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
-  z-index: 1000;
 }
 
 .brand-inner {
@@ -46,11 +53,19 @@ body {
 .brand-logo {
   width: 44px;
   height: 44px;
+  object-fit: contain;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
 }
 
 .brand-name {
   font-size: 22px;
   font-weight: 800;
+  color: #0f172a;
 }
 
 .brand-tagline {
@@ -58,14 +73,22 @@ body {
   color: #475569;
 }
 
-.brand-phone {
-  font-size: 18px;
-  font-weight: 700;
-  color: #0f172a;
-  text-decoration: none;
+.brand-right {
+  display: flex;
+  gap: 20px;
 }
 
-/* HERO */
+.brand-contact {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* =========================
+   HERO
+========================= */
 .hero {
   margin-top: 32px;
 }
@@ -81,12 +104,16 @@ body {
   font-size: 56px;
   font-weight: 800;
   line-height: 1.08;
+  letter-spacing: -0.02em;
+  max-width: 620px;
   margin-bottom: 24px;
 }
 
 .hero p {
   font-size: 20px;
+  line-height: 1.55;
   color: #334155;
+  max-width: 560px;
 }
 
 .hero img {
@@ -94,9 +121,12 @@ body {
   border-radius: 20px;
 }
 
-/* SERVICES */
+/* =========================
+   SERVICES
+========================= */
 .services h2 {
   font-size: 44px;
+  font-weight: 800;
   margin-bottom: 40px;
 }
 
@@ -110,9 +140,11 @@ body {
   background: #f8fafc;
   padding: 28px;
   border-radius: 20px;
+  font-size: 16px;
+  line-height: 1.55;
 }
 
-/* SERVICES IMAGE */
+/* Services image spacing */
 .services-image {
   margin-top: 96px;
 }
@@ -125,7 +157,9 @@ body {
   border-radius: 24px;
 }
 
-/* VALUE MODULE */
+/* =========================
+   VALUE MODULE
+========================= */
 .value-module {
   background: #f8fafc;
 }
@@ -134,10 +168,12 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 64px;
+  align-items: start;
 }
 
 .value-module h2 {
   font-size: 44px;
+  font-weight: 800;
   margin-bottom: 24px;
 }
 
@@ -147,23 +183,38 @@ body {
   margin-bottom: 20px;
 }
 
+.value-points {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .value-point {
   background: #ffffff;
   padding: 24px;
   border-radius: 16px;
-  margin-bottom: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
 }
 
-/* COMPARISON */
+.value-point strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* =========================
+   COMPARISON TABLE
+========================= */
 .comparison h2 {
   font-size: 44px;
+  font-weight: 800;
   margin-bottom: 40px;
 }
 
 .comparison-table {
+  background: #ffffff;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
 
 .row {
@@ -172,26 +223,84 @@ body {
   border-bottom: 1px solid #e5e7eb;
 }
 
+.row:last-child {
+  border-bottom: none;
+}
+
 .row.header {
   background: #0f172a;
-  color: white;
+  color: #ffffff;
+  font-weight: 700;
 }
 
 .row div {
   padding: 16px;
+  text-align: center;
 }
 
-.yes { color: #16a34a; font-weight: 700; }
-.no { color: #dc2626; font-weight: 700; }
+.row div:first-child {
+  text-align: left;
+}
 
-/* CONTACT */
+.yes {
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.no {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+.comparison small {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* =========================
+   FOUNDER / BIO
+========================= */
+.founder {
+  background: #ffffff;
+}
+
+.founder-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.founder img {
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.founder h2 {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.founder p {
+  font-size: 22px;
+  line-height: 1.65;
+  max-width: 720px;
+  margin-bottom: 16px;
+}
+
+/* =========================
+   CONTACT
+========================= */
 .contact {
   text-align: center;
 }
 
 .contact h2 {
   font-size: 40px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 form {
@@ -201,32 +310,95 @@ form {
   gap: 16px;
 }
 
-input, textarea, button {
+input,
+textarea,
+button {
   padding: 14px;
+  font-size: 16px;
   border-radius: 8px;
   border: 1px solid #cbd5e1;
 }
 
+textarea {
+  resize: vertical;
+}
+
 button {
   background: #0f172a;
-  color: white;
+  color: #ffffff;
   font-weight: 600;
+  border: none;
   cursor: pointer;
 }
 
-/* MOBILE */
+.hipaa-disclaimer {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 16px;
+}
+
+/* =========================
+   MOBILE
+========================= */
 @media (max-width: 900px) {
   .hero-grid,
   .cards,
-  .value-grid {
+  .value-grid,
+  .founder-grid {
     grid-template-columns: 1fr;
   }
 
-  .brand-phone {
+  .brand-right {
     display: none;
   }
 
   .hero h1 {
     font-size: 40px;
+    line-height: 1.15;
+  }
+
+  .hero p {
+    font-size: 18px;
+  }
+
+  .services-image {
+    margin-top: 64px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .row.header {
+    display: none;
+  }
+
+  .row div {
+    text-align: left;
+    padding: 12px 16px;
+  }
+
+  .founder {
+    text-align: center;
+  }
+
+  .founder img {
+    width: 260px;
+    height: 260px;
+    margin: 0 auto 24px;
+  }
+
+  .founder p {
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .brand-name {
+    font-size: 18px;
+  }
+
+  .brand-tagline {
+    font-size: 13px;
   }
 }
