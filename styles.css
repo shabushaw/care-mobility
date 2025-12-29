@@ -72,17 +72,74 @@ body {
 
 .card {
   background: #f8fafc;
+  padding: 28px;
+  border-radius: 20px;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+/* Services image spacing */
+.services-image {
+  margin-top: 96px;
+}
+
+.services-image img {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: block;
+  border-radius: 24px;
+}
+
+/* =========================
+   VALUE MODULE (NEW)
+========================= */
+.value-module {
+  background: #f8fafc;
+}
+
+.value-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.value-module h2 {
+  font-size: 44px;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.value-module p {
+  font-size: 20px;
+  color: #334155;
+  margin-bottom: 20px;
+}
+
+.value-points {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.value-point {
+  background: #ffffff;
   padding: 24px;
   border-radius: 16px;
-  font-size: 16px;
-  line-height: 1.5;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.value-point strong {
+  display: block;
+  margin-bottom: 8px;
 }
 
 /* =========================
    COMPARISON TABLE
 ========================= */
 .comparison {
-  background: #f8fafc;
+  background: #ffffff;
 }
 
 .comparison h2 {
@@ -222,18 +279,22 @@ button {
 @media (max-width: 900px) {
   .hero-grid,
   .founder-grid,
-  .cards {
+  .cards,
+  .value-grid {
     grid-template-columns: 1fr;
   }
 
   .hero h1 {
     font-size: 40px;
     line-height: 1.15;
-    max-width: 100%;
   }
 
   .hero p {
     font-size: 18px;
+  }
+
+  .services-image {
+    margin-top: 64px;
   }
 
   .row {
@@ -249,7 +310,7 @@ button {
     padding: 12px 16px;
   }
 
-  .founder-grid {
+  .founder {
     text-align: center;
   }
 
@@ -257,10 +318,6 @@ button {
     width: 260px;
     height: 260px;
     margin: 0 auto 24px;
-  }
-
-  .founder h2 {
-    font-size: 36px;
   }
 
   .founder p {
