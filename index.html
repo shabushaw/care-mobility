@@ -110,15 +110,15 @@
     </div>
   </section>
 
-  <!-- RIDESHARE -->
-  <section class="rideshare">
-    <div class="rideshare-inner">
-      <h2>Care Mobility vs Rideshare</h2>
+  <!-- COMPARISON: RIDESHARE -->
+  <section class="comparison-section">
+    <div class="comparison-inner">
+      <h2>Care Mobility vs Uber / Lyft</h2>
 
-      <p class="rideshare-intro">
-        Rideshare services can work for one-off trips. But when
-        transportation is needed again and again — often multiple
-        times each week — reliability, familiarity, and routine matter more.
+      <p class="comparison-intro">
+        Rideshare services can work for one-off trips. But when transportation
+        is needed again and again, consistency, familiarity, and predictability
+        matter far more.
       </p>
 
       <div class="comparison-table">
@@ -151,11 +151,56 @@
           <div class="yes">✓</div>
           <div class="no">✕</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON: MEDICAL TRANSPORT -->
+  <section class="comparison-section light">
+    <div class="comparison-inner">
+      <h2>Care Mobility vs Traditional Medical Transportation</h2>
+
+      <p class="comparison-intro">
+        Traditional medical and Medicare transportation services are designed
+        for system efficiency. Care Mobility is designed around the patient
+        experience.
+      </p>
+
+      <div class="comparison-table">
+        <div class="comparison-header">
+          <div></div>
+          <div>Care Mobility</div>
+          <div>Traditional Medical Transport</div>
+        </div>
 
         <div class="comparison-row">
-          <div class="label">Lower cost for one-off trips</div>
-          <div class="no">✕</div>
+          <div class="label">Patient-selected pickup times</div>
           <div class="yes">✓</div>
+          <div class="no">✕</div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="label">Minimal wait times</div>
+          <div class="yes">✓</div>
+          <div class="no">✕</div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="label">Direct, non-shared rides</div>
+          <div class="yes">✓</div>
+          <div class="no">✕</div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="label">Same driver and routine</div>
+          <div class="yes">✓</div>
+          <div class="no">✕</div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="label">Private-pay flexibility</div>
+          <div class="yes">✓</div>
+          <div class="no">✕</div>
         </div>
       </div>
     </div>
@@ -164,30 +209,21 @@
   <!-- FOUNDER -->
   <section class="founder-section">
     <div class="founder-inner">
-      <div class="founder-photo-wrap">
-        <img
-          src="assets/daniel.jpg"
-          alt="Daniel Shim"
-          class="founder-photo"
-        />
-      </div>
+      <img src="assets/daniel.jpg" alt="Daniel Shim" class="founder-photo" />
 
       <div class="founder-content">
         <h2>Built Around Showing Up</h2>
 
         <p class="founder-lead">
           Care Mobility exists because many seniors weren’t struggling
-          with a single ride — they were struggling with the same ride,
-          over and over again. Dialysis, therapy, oncology, and recovery
-          appointments happen multiple times a week, often at the same
-          clinic, on the same schedule.
+          with a single ride. They were struggling with the same ride,
+          over and over again.
         </p>
 
         <p>
-          Care Mobility is built specifically for these recurring trips.
           Familiar drivers, predictable pickup times, and dependable
           routines mean patients and families can count on the same
-          experience — not just once, but every time.
+          experience every time.
         </p>
       </div>
     </div>
@@ -196,7 +232,6 @@
   <!-- CONTACT -->
   <section class="contact">
     <div class="contact-inner">
-
       <div class="phone-cta">
         <p>Prefer to speak with someone now?</p>
         <a href="tel:16178216429">(617) 821-6429</a>
@@ -204,16 +239,8 @@
 
       <h2>Request Transportation or Learn More</h2>
 
-      <form
-        name="contact"
-        method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-      >
+      <form name="contact" method="POST" data-netlify="true">
         <input type="hidden" name="form-name" value="contact" />
-        <input type="hidden" name="bot-field" />
-        <input type="hidden" name="redirect" value="/thanks.html" />
-
         <input type="text" name="name" placeholder="Your name" required />
         <input type="email" name="email" placeholder="Email address" required />
         <input type="tel" name="phone" placeholder="Phone number" />
@@ -223,7 +250,6 @@
           placeholder="Tell us about the transportation needs"
           required
         ></textarea>
-
         <button type="submit">Submit</button>
       </form>
 
@@ -231,10 +257,8 @@
         Please do not include medical diagnoses or protected health
         information (PHI) in this form.
       </p>
-
     </div>
   </section>
 
 </body>
 </html>
-
