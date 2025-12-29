@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Care Mobility</title>
 
+  <!-- Favicon -->
   <link rel="icon" href="/assets/cm-favicon.png" type="image/png" />
+
+  <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -14,13 +17,20 @@
 <section class="hero">
   <div class="container hero-grid">
     <div>
-      <h1>Reliable transportation<br>for recurring medical care</h1>
+      <h1>
+        Reliable transportation<br>
+        for recurring medical care
+      </h1>
       <p>
         Consistent, dependable rides for seniors and patients with ongoing
         medical appointments.
       </p>
     </div>
-    <img src="assets/grandmadialysis.jpg" alt="Senior transportation">
+
+    <img
+      src="assets/grandmadialysis.jpg"
+      alt="Senior being transported to a medical appointment"
+    />
   </div>
 </section>
 
@@ -29,16 +39,24 @@
   <h2>Recurring Medical Transportation, Done Right</h2>
 
   <div class="cards">
-    <div class="card">🩺 <strong>Dialysis</strong><br>Multiple weekly treatments where timing matters.</div>
-    <div class="card">💉 <strong>Cancer & Infusion</strong><br>Long-term therapy at the same care center.</div>
-    <div class="card">♿ <strong>Rehab & Therapy</strong><br>Physical, occupational, and speech therapy.</div>
-    <div class="card">☢️ <strong>Radiation Therapy</strong><br>Daily treatments requiring consistency.</div>
-    <div class="card">🤝 <strong>Substance Use Care</strong><br>Outpatient programs that depend on routine.</div>
-    <div class="card">🏥 <strong>Post-Op Rehab</strong><br>Recovery visits after surgery.</div>
+    <div class="card">🩺 <strong>Dialysis</strong><br>Time-sensitive treatments multiple times per week where consistency and punctuality are critical.</div>
+    <div class="card">💉 <strong>Cancer & Infusion Therapy</strong><br>Recurring oncology and infusion appointments at the same care centers over extended periods.</div>
+    <div class="card">♿ <strong>Rehabilitation & Therapy</strong><br>Physical, occupational, speech, and pulmonary therapy requiring repeat visits week after week.</div>
+    <div class="card">☢️ <strong>Radiation Therapy</strong><br>Daily treatments over multiple weeks where even small delays can disrupt care schedules.</div>
+    <div class="card">🤝 <strong>Substance Use Treatment</strong><br>Outpatient programs that depend on consistent attendance and reliable transportation routines.</div>
+    <div class="card">🏥 <strong>Post-Op Rehab</strong><br>Recovery after surgery often involves multiple weekly visits to the same rehabilitation facility.</div>
+  </div>
+
+  <!-- Senior Assist Image -->
+  <div class="services-image">
+    <img
+      src="assets/senior-assist.jpg"
+      alt="Senior receiving assistance entering a vehicle"
+    />
   </div>
 </section>
 
-<!-- SINGLE COMPARISON TABLE -->
+<!-- COMPARISON -->
 <section class="comparison">
   <div class="container">
     <h2>How Care Mobility Compares</h2>
@@ -75,7 +93,7 @@
       <div class="row">
         <div>Direct, non-shared rides</div>
         <div class="yes">✓</div>
-        <div class="no">✓</div>
+        <div class="yes">✓</div>
         <div class="no">✕</div>
       </div>
 
@@ -92,7 +110,11 @@
 <!-- FOUNDER -->
 <section class="founder">
   <div class="container founder-grid">
-    <img src="assets/daniel.jpg" alt="Founder">
+    <img
+      src="assets/daniel.jpg"
+      alt="Founder of Care Mobility"
+    />
+
     <div>
       <h2>Built Around Showing Up</h2>
       <p>
@@ -111,16 +133,30 @@
 <!-- CONTACT -->
 <section class="contact">
   <div class="container">
-    <h2>Request Transportation</h2>
+    <h2>Request Transportation or Learn More</h2>
+
     <a class="phone" href="tel:16178216429">(617) 821-6429</a>
 
     <form name="contact" method="POST" data-netlify="true">
-      <input type="hidden" name="form-name" value="contact">
-      <input type="text" name="name" placeholder="Name" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <textarea name="message" placeholder="Transportation needs" required></textarea>
+      <input type="hidden" name="form-name" value="contact" />
+
+      <input type="text" name="name" placeholder="Your name" required />
+      <input type="email" name="email" placeholder="Email address" required />
+      <input type="tel" name="phone" placeholder="Phone number" />
+      <textarea
+        name="message"
+        rows="4"
+        placeholder="Tell us about the transportation needs"
+        required
+      ></textarea>
+
       <button type="submit">Submit</button>
     </form>
+
+    <p class="hipaa-disclaimer">
+      Please do not include medical diagnoses or protected health
+      information (PHI) in this form.
+    </p>
   </div>
 </section>
 
