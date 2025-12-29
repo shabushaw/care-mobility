@@ -1,177 +1,163 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   color: #0f172a;
-  background: #ffffff;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
 }
 
 /* HERO */
 .hero {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 24px;
-  display: flex;
+  background: #ffffff;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 48px;
   align-items: center;
 }
 
-.hero-title {
-  font-size: 64px;
+.hero img {
+  width: 100%;
+  border-radius: 20px;
+}
+
+h1 {
+  font-size: 56px;
   font-weight: 800;
-  line-height: 1.05;
-  margin-bottom: 20px;
-}
-
-.hero-subtitle {
-  font-size: 20px;
-  line-height: 1.6;
-  color: #334155;
-}
-
-.hero-image img {
-  width: 520px;
-  max-width: 100%;
-  border-radius: 24px;
 }
 
 /* SERVICES */
-.services {
-  max-width: 1200px;
-  margin: 80px auto;
-  padding: 0 24px;
+.services h2 {
+  margin-bottom: 40px;
 }
 
-.services-header h2 {
-  font-size: 48px;
-  font-weight: 800;
-  margin-bottom: 16px;
-}
-
-.services-header p {
-  font-size: 18px;
-  color: #475569;
-  margin-bottom: 72px;
-}
-
-.service-cards {
+.cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 24px;
 }
 
-.service-card {
-  padding: 32px;
-  border-radius: 20px;
+.card {
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 16px;
 }
-
-.service-card.blue { background: #f1f7ff; }
-.service-card.peach { background: #fff1ed; }
-.service-card.green { background: #f2fbf2; }
 
 /* COMPARISON */
-.comparison-section {
-  padding: 120px 24px;
-}
-
-.comparison-section.light {
+.comparison {
   background: #f8fafc;
 }
 
-.comparison-inner {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.comparison-inner h2 {
-  font-size: 44px;
-  font-weight: 800;
-  margin-bottom: 16px;
-}
-
-.comparison-intro {
-  font-size: 18px;
-  color: #475569;
-  margin-bottom: 48px;
-}
-
 .comparison-table {
-  border-radius: 20px;
+  background: #fff;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
 
-.comparison-header,
-.comparison-row {
+.row {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-}
-
-.comparison-header {
-  background: #0f172a;
-  color: #ffffff;
-  font-weight: 700;
-}
-
-.comparison-header div,
-.comparison-row div {
-  padding: 16px 20px;
-}
-
-.comparison-row {
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   border-bottom: 1px solid #e5e7eb;
 }
 
-.label {
-  font-weight: 500;
+.row.header {
+  background: #0f172a;
+  color: #fff;
+  font-weight: 700;
 }
 
-.yes {
-  color: #16a34a;
-  font-weight: 700;
+.row div {
+  padding: 16px;
   text-align: center;
 }
 
-.no {
-  color: #dc2626;
-  font-weight: 700;
+.row div:first-child {
+  text-align: left;
+}
+
+.yes { color: #16a34a; font-weight: 700; }
+.no { color: #dc2626; font-weight: 700; }
+
+/* FOUNDER */
+.founder-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.founder img {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* CONTACT */
+.contact {
   text-align: center;
 }
 
-/* MOBILE FIX */
+.phone {
+  display: block;
+  font-size: 24px;
+  margin: 16px 0;
+  text-decoration: none;
+  color: #0f172a;
+}
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  display: grid;
+  gap: 16px;
+}
+
+input, textarea, button {
+  padding: 14px;
+  font-size: 16px;
+}
+
+button {
+  background: #0f172a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+}
+
+/* MOBILE */
 @media (max-width: 900px) {
-  .hero,
-  .founder-inner {
-    flex-direction: column;
-  }
-
-  .hero-title {
-    font-size: 48px;
-  }
-
-  .service-cards {
+  .hero-grid,
+  .founder-grid,
+  .cards {
     grid-template-columns: 1fr;
   }
 
-  .comparison-header {
+  h1 {
+    font-size: 40px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .row.header {
     display: none;
   }
 
-  .comparison-row {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-
-  .comparison-row div:nth-child(2)::before {
-    content: "Care Mobility: ";
-  }
-
-  .comparison-row div:nth-child(3)::before {
-    content: "Other Option: ";
+  .row div {
+    padding: 12px 16px;
   }
 }
