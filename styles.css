@@ -52,7 +52,12 @@ body {
 .hero p {
   font-size: 20px;
   color: #475569;
-  max-width: 560px;
+  max-width: 580px;
+}
+
+.hero-subcopy {
+  font-size: 18px;
+  margin-top: 12px;
 }
 
 .hero-image img {
@@ -67,7 +72,14 @@ body {
 
 .services h2 {
   font-size: 36px;
+  margin-bottom: 16px;
+}
+
+.section-intro {
+  max-width: 720px;
+  color: #475569;
   margin-bottom: 48px;
+  font-size: 18px;
 }
 
 .service-grid {
@@ -88,11 +100,19 @@ body {
 }
 
 /* IMAGE BREAK */
-.image-break img {
+.image-break {
+  padding: 64px 40px;
+}
+
+.image-frame {
+  max-width: 960px;
+  margin: auto;
+}
+
+.image-frame img {
   width: 100%;
+  border-radius: 24px;
   display: block;
-  border-radius: 28px;
-  margin: 96px 0;
 }
 
 /* WHY */
@@ -151,17 +171,25 @@ td:first-child {
   text-align: left;
 }
 
-/* STORY */
-.story {
+/* QUOTE */
+.quote {
   padding: 96px 40px;
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 40px;
+  background: #f8fafc;
 }
 
-.avatar {
-  width: 140px;
-  border-radius: 50%;
+.quote blockquote {
+  max-width: 720px;
+  margin: auto;
+  font-size: 22px;
+  line-height: 1.4;
+  color: #0f172a;
+}
+
+.quote span {
+  display: block;
+  margin-top: 16px;
+  font-size: 16px;
+  color: #475569;
 }
 
 /* FORM */
@@ -217,10 +245,15 @@ td:first-child {
 /* MOBILE */
 @media (max-width: 900px) {
   .hero,
-  .why,
-  .story {
+  .why {
     grid-template-columns: 1fr;
   }
 
   .service-grid {
-    grid-template-columns: 1
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+}
