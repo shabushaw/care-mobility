@@ -123,27 +123,19 @@ body {
 }
 
 /* WHY */
-.why {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 64px;
-  padding: 96px 40px;
+.why-emphasis {
+  margin: 1.25rem 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
-.why h2 {
-  font-size: 40px;
-  line-height: 1.1;
+.why-emphasis strong {
+  color: #111;
 }
 
-.why-card {
-  background: #f8fafc;
-  padding: 28px;
-  border-radius: 20px;
-  margin-bottom: 24px;
-}
-
-.why-card.highlight {
-  background: #eef2ff;
+.why-card p {
+  margin-top: 0.5rem;
+  line-height: 1.5;
 }
 
 /* COMPARISON */
