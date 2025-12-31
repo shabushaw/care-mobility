@@ -347,3 +347,18 @@ td:first-child {
   display: block;
   margin-bottom: 4px;
 }
+/* Ensure vehicle images are visually equivalent */
+
+.alt-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.alt-images img {
+  width: 100%;
+  height: 220px;        /* forces visual consistency */
+  object-fit: cover;   /* crops instead of stretching */
+  border-radius: 12px;
+  background: #f3f4f6; /* subtle neutral backdrop for PNGs */
+}
