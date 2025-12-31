@@ -317,3 +317,33 @@ td:first-child {
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Refinements for Insurance + Vehicle Modules ===== */
+
+.alt-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.alt-text {
+  max-width: 520px;
+}
+
+.alt-module {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.alt-module + .alt-module {
+  margin-top: 40px;
+}
+
+.alt-bullets li {
+  margin-bottom: 20px;
+}
+
+.alt-bullets strong {
+  display: block;
+  margin-bottom: 4px;
+}
