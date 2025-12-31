@@ -282,6 +282,7 @@ td:first-child {
 
 .alt-text {
   flex: 1;
+  max-width: 520px;
 }
 
 .alt-images {
@@ -293,20 +294,40 @@ td:first-child {
 
 .alt-images img {
   width: 100%;
-  border-radius: 12px;
+  height: 220px;
   object-fit: cover;
+  border-radius: 12px;
+  background: #f3f4f6;
 }
+
+/* ===== BULLETS ===== */
 
 .alt-bullets {
   padding-left: 20px;
 }
 
 .alt-bullets li {
-  margin-bottom: 16px;
-  line-height: 1.5;
+  margin-bottom: 18px;
+  line-height: 1.55;
 }
 
-/* Mobile */
+.alt-bullets strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* ===== SPACING ===== */
+
+.alt-module {
+  padding: 80px 24px;
+}
+
+.alt-module + .alt-module {
+  margin-top: 40px;
+}
+
+/* ===== MOBILE ===== */
+
 @media (max-width: 900px) {
   .alt-split,
   .alt-split.reverse {
@@ -316,49 +337,4 @@ td:first-child {
   .alt-images {
     grid-template-columns: 1fr;
   }
-}
-
-/* ===== Refinements for Insurance + Vehicle Modules ===== */
-
-.alt-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-.alt-text {
-  max-width: 520px;
-}
-
-.alt-module {
-  padding-top: 80px;
-  padding-bottom: 80px;
-}
-
-.alt-module + .alt-module {
-  margin-top: 40px;
-}
-
-.alt-bullets li {
-  margin-bottom: 20px;
-}
-
-.alt-bullets strong {
-  display: block;
-  margin-bottom: 4px;
-}
-/* Ensure vehicle images are visually equivalent */
-
-.alt-images {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.alt-images img {
-  width: 100%;
-  height: 220px;        /* forces visual consistency */
-  object-fit: cover;   /* crops instead of stretching */
-  border-radius: 12px;
-  background: #f3f4f6; /* subtle neutral backdrop for PNGs */
 }
