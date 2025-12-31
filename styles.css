@@ -300,6 +300,17 @@ td:first-child {
   background: #f3f4f6;
 }
 
+/* Mobile stacking */
+@media (max-width: 900px) {
+  .alt-split {
+    flex-direction: column;
+  }
+
+  .alt-images {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ===== BULLETS ===== */
 
 .alt-bullets {
