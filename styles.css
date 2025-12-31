@@ -413,3 +413,64 @@ td:first-child {
     flex-direction: column;
   }
 }
+/* Shared width control for desktop balance */
+.why-inner,
+.faq-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+/* WHY: narrative, calm */
+.why-narrative {
+  background: #f8fafc; /* very light gray-blue */
+}
+
+.why-left p {
+  max-width: 680px;
+}
+
+.why-emphasis {
+  margin: 1.5rem 0;
+  font-size: 1.05rem;
+}
+
+/* FAQ: distinct, card-based */
+.faq-contrast {
+  background: #ffffff;
+  border-top: 1px solid #e6ebf2;
+}
+
+.faq h2 {
+  margin-bottom: 2rem;
+}
+
+.faq-list {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 760px;
+}
+
+.faq-item {
+  background: #f1f5fb;
+  padding: 1.5rem 1.75rem;
+  border-radius: 12px;
+}
+
+.faq-item h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.faq-item p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .why-inner,
+  .faq-inner {
+    padding: 3rem 1.5rem;
+  }
+}
