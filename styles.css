@@ -384,3 +384,32 @@ td:first-child {
   line-height: 1.6;
   color: #374151;
 }
+
+.alt-split {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.alt-images {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.alt-images img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.alt-text {
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .alt-split {
+    flex-direction: column;
+  }
+}
