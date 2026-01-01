@@ -425,3 +425,47 @@ td:first-child {
     padding: 3rem 1.5rem;
   }
 }
+/* === ADDITIVE CONVERSION SECTIONS === */
+
+.hero-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+}
+
+.primary-cta {
+  background: var(--brand-blue);
+  color: #fff;
+  padding: 14px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.secondary-cta {
+  align-self: center;
+  color: var(--brand-blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.who-for,
+.how-it-works,
+.expectations,
+.final-cta {
+  padding: var(--pad-section);
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.how-steps {
+  display: grid;
+  gap: 24px;
+  max-width: 720px;
+}
+
+.final-cta {
+  text-align: center;
+  background: var(--bg-soft);
+  border-radius: var(--radius-lg);
+}
