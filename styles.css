@@ -398,3 +398,23 @@ td:first-child {
     padding: 3rem 1.5rem;
   }
 }
+
+@media (max-width: 900px) {
+  .alt-split {
+    flex-direction: column;
+  }
+
+  /* Force rhythm on mobile */
+  .alt-text {
+    order: 1;
+  }
+
+  .alt-images {
+    order: 2;
+  }
+
+  /* Add spacing so images don’t feel dumped */
+  .alt-images img {
+    margin-bottom: 16px;
+  }
+}
