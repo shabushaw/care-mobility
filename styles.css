@@ -529,3 +529,12 @@ td:first-child {
     grid-template-columns: 1fr;
   }
 }
+
+/* Match blue section headers */
+.section-title-blue {
+  color: var(--brand-blue);
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
