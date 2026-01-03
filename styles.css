@@ -538,3 +538,55 @@ td:first-child {
   line-height: 1.15;
 }
 
+.story-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  margin: 80px 0;
+}
+
+/* Alternating cadence */
+.story-block.reverse {
+  grid-template-areas: "images copy";
+}
+
+.story-block:not(.reverse) {
+  grid-template-areas: "copy images";
+}
+
+.story-copy {
+  grid-area: copy;
+}
+
+.story-images {
+  grid-area: images;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.story-images img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* MOBILE: narrative-first stacking */
+@media (max-width: 768px) {
+  .story-block {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "copy"
+      "images";
+    gap: 24px;
+    margin: 56px 0;
+  }
+
+  .story-images {
+    grid-template-columns: 1fr;
+  }
+
+  .story-images img:nth-child(n+2) {
+    display: none; /* show only 1 image per story */
+  }
+}
