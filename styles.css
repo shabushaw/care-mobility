@@ -24,7 +24,7 @@
 }
 
 /* =========================
-   BASE
+   BASE & SHARED
 ========================= */
 
 *,
@@ -37,9 +37,10 @@ body {
   margin: 0;
   font-family: system-ui, -apple-system, sans-serif;
   color: var(--text-main);
+  line-height: 1.5;
 }
 
-/* Shared content wrapper */
+/* Shared width containers */
 .container,
 .why-inner,
 .faq-inner,
@@ -68,34 +69,17 @@ body {
   gap: 12px;
 }
 
-.logo {
-  width: 40px;
-}
-
-.brand {
-  font-weight: 700;
-}
-
-.tagline {
-  font-size: 14px;
-  color: var(--text-soft);
-}
+.logo { width: 40px; }
+.brand { font-weight: 700; }
+.tagline { font-size: 14px; color: var(--text-soft); }
 
 /* =========================
    SECTION UTILITIES
 ========================= */
 
-.section {
-  padding: var(--pad-xl);
-}
-
-.section-narrow {
-  padding: var(--pad-lg);
-}
-
-.section-soft {
-  background: var(--bg-soft);
-}
+.section { padding: var(--pad-xl); }
+.section-narrow { padding: var(--pad-lg); }
+.section-soft { background: var(--bg-soft); }
 
 .section-title-blue {
   color: var(--brand-blue);
@@ -132,18 +116,6 @@ body {
   margin-top: 12px;
 }
 
-.hero-cta {
-  margin-top: 16px;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.hero-image img {
-  width: 100%;
-  border-radius: var(--radius-lg);
-}
-
-/* CTA buttons */
 .hero-actions {
   margin-top: 22px;
   display: flex;
@@ -155,7 +127,7 @@ body {
   background: var(--brand-blue);
   color: #fff;
   padding: 14px 20px;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   font-weight: 700;
   text-decoration: none;
 }
@@ -167,20 +139,21 @@ body {
   align-self: center;
 }
 
+.hero-image img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+}
+
 /* =========================
-   CARD GRIDS (Services + Steps)
+   GRIDS & CARDS
 ========================= */
 
-.grid {
-  display: grid;
-  gap: 24px;
-}
+.grid { display: grid; gap: 24px; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
 
-.grid-3 {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.card {
+.card,
+.service-card,
+.how-step {
   background: var(--bg-soft);
   padding: 24px;
   border-radius: var(--radius-lg);
@@ -200,20 +173,12 @@ body {
    SERVICES
 ========================= */
 
-.services {
-  padding: var(--pad-xl);
-}
+.services { padding: var(--pad-xl); }
 
 .service-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
-}
-
-.service-card {
-  background: var(--bg-soft);
-  padding: 28px;
-  border-radius: var(--radius-lg);
 }
 
 /* =========================
@@ -238,13 +203,6 @@ body {
   gap: 24px;
 }
 
-.how-step {
-  background: var(--bg-soft);
-  padding: 22px;
-  border-radius: var(--radius-lg);
-}
-
-/* Icons */
 .how-icon {
   width: 28px;
   height: 28px;
@@ -259,75 +217,63 @@ body {
 }
 
 /* =========================
-   ALT / STORY MODULES
+   ALT / STORY MODULES (PORTRAIT)
 ========================= */
 
-.alt-module {
-  padding: var(--pad-lg);
-}
+.alt-module { padding: var(--pad-lg); }
 
 .alt-split {
   max-width: 1000px;
   margin: 0 auto;
   display: flex;
-  gap: 48px;
+  gap: 64px;
+  align-items: stretch;
 }
 
 .alt-text {
-  flex: 1;
+  flex: 1.2;
   max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .alt-text h2 {
   font-size: 44px;
-  margin-bottom: 24px;
+  margin: 0 0 24px;
   color: var(--brand-blue);
 }
 
+.alt-text p {
+  font-size: 18px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.why-emphasis {
+  font-weight: 700;
+  color: var(--text-main);
+  border-left: 4px solid var(--brand-blue);
+  padding-left: 20px;
+}
+
 .alt-images {
-  flex: 1;
-  max-width: 380px;
+  flex: 0.8;
   display: flex;
-  flex-direction: column;
-  gap: 24px;
 }
 
 .alt-images img {
   width: 100%;
-  height: 220px;
+  height: 100%;
+  min-height: 500px;
   object-fit: cover;
-  border-radius: var(--radius-md);
+  object-position: center;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
 /* =========================
-   COMPARISON TABLE
-========================= */
-
-.comparison-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 24px;
-  font-size: 16px;
-}
-
-.comparison-table th,
-.comparison-table td {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border-light);
-  text-align: left;
-}
-
-.comparison-table th {
-  font-weight: 600;
-  color: #1f3a5f;
-}
-
-.comparison-table td:last-child {
-  font-weight: 600;
-}
-
-/* =========================
-   FAQ
+   FAQ & TABLES
 ========================= */
 
 .faq {
@@ -346,130 +292,115 @@ body {
   border-radius: var(--radius-md);
 }
 
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+}
 
+.comparison-table th,
+.comparison-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-light);
+  text-align: left;
+}
+
+/* =========================
+   BLOCKQUOTE
+========================= */
+
+blockquote {
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
+  font-style: italic;
+  padding: 20px;
+  position: relative;
+}
+
+blockquote::before {
+  content: "“";
+  font-size: 50px;
+  color: #ccc;
+  display: block;
+  margin-bottom: -20px;
+}
+
+/* =========================
+   CALENDLY & FOOTER
+========================= */
+
+.final-cta {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.final-cta-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cta-disclaimer {
+  max-width: 600px;
+  margin: 0 auto 30px;
+  color: var(--text-soft);
+}
+
+.calendly-container {
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.site-footer {
+  background-color: var(--bg-soft);
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 1px solid var(--border-light);
+  margin-top: 50px;
+}
+
+.footer-logo {
+  max-width: 150px;
+  margin-bottom: 20px;
+}
+
+.footer-info p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.footer-info a {
+  color: var(--brand-blue);
+  text-decoration: none;
+}
 
 /* =========================
    RESPONSIVE
 ========================= */
 
 @media (max-width: 1024px) {
-  .hero {
-    grid-template-columns: 1fr;
-  }
-
-  .how-steps-grid,
-  .service-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .how-icon {
-    width: 24px;
-    height: 24px;
-  }
+  .hero { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-  .how-steps-grid,
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
+  .grid-3 { grid-template-columns: 1fr; }
 
   .alt-split {
     flex-direction: column;
-  }
-}
-
-@media (max-width: 640px) {
-  .how-icon {
-    width: 20px;
-    height: 20px;
+    align-items: center;
   }
 
-  .how-step {
-    padding: 18px;
+  .alt-images {
+    width: 100%;
+    max-width: 500px;
   }
 
-  .how-step strong {
-    font-size: 16px;
+  .alt-images img {
+    height: 400px;
+    min-height: auto;
   }
-
-  .how-step p {
-    font-size: 14px;
-    line-height: 1.45;
-  }
-}
-
-.final-cta {
-    padding: 60px 20px;
-    background-color: #ffffff; /* Or your site's secondary color */
-    text-align: center;
-}
-
-.final-cta-inner {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.final-cta h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    color: #333;
-}
-
-.cta-disclaimer {
-    max-width: 600px;
-    margin: 0 auto 30px auto;
-    color: #666;
-    line-height: 1.5;
-}
-
-/* Keeps the Calendly widget from bleeding out on mobile */
-.calendly-container {
-    overflow: hidden;
-    border-radius: 8px;
-    border: 1px solid #eee;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.site-footer {
-    background-color: #f8f9fa; /* Light grey or pick your brand color */
-    padding: 40px 20px;
-    text-align: center;
-    border-top: 1px solid #eee;
-    margin-top: 50px;
-}
-
-.footer-logo {
-    max-width: 150px;
-    margin-bottom: 20px;
-}
-
-.footer-info p {
-    margin: 5px 0;
-    color: #666;
-    font-size: 14px;
-}
-
-.footer-info a {
-    color: #007bff; /* Link color */
-    text-decoration: none;
-}
-
-blockquote {
-    max-width: 600px;
-    margin: 40px auto; /* Centers the block itself */
-    text-align: center; /* Centers the text inside */
-    font-style: italic;
-    border-left: none; /* Removes the default side bar if you don't want it */
-    padding: 20px;
-    position: relative;
-}
-
-/* Optional: Adds decorative quotation marks */
-blockquote::before {
-    content: "“";
-    font-size: 50px;
-    color: #ccc;
-    display: block;
-    margin-bottom: -20px;
 }
