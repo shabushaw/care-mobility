@@ -266,26 +266,11 @@ body {
   padding: var(--pad-lg);
 }
 
-.alt-images img {
-  width: 100%;
-  /* Increase this height to match your text block height */
-  height: 100%; 
-  min-height: 500px; /* Adjust this value until it matches your copy height */
-  
-  /* This prevents the image from looking 'stretched' */
-  object-fit: cover; 
-  
-  /* This 'lowers' the camera view by showing more of the top of the photo */
-  /* Adjust the '20%' value to move the image focus up or down */
-  object-position: center 20%; 
-  
-  border-radius: var(--radius-lg);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-/* Ensure the container allows the image to grow */
-.hero, .alt-split {
-  align-items: stretch; /* Forces the image side to match the text side height */
+.alt-split {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  gap: 48px;
 }
 
 .alt-text {
