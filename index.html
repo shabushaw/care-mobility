@@ -475,33 +475,34 @@
 <section class="final-cta">
   <div class="final-cta-inner">
     <h2>Schedule recurring transportation</h2>
-    <p>
-      Choose a time to discuss recurring medical transportation needs.
-      Please do not include medical diagnoses or protected health information (PHI).
+    <p class="cta-disclaimer">
+      Choose a time to discuss recurring medical transportation needs.<br>
+      <strong>Please do not include medical diagnoses or protected health information (PHI).</strong>
     </p>
 
-    <div
-      class="calendly-inline-widget"
-      data-url="https://calendly.com/caremobility247"
-      style="min-width:320px;height:750px;">
+    <div class="calendly-container">
+      <div
+        class="calendly-inline-widget"
+        data-url="https://calendly.com/caremobility247"
+        style="min-width:320px;height:600px;"> </div>
     </div>
   </div>
 </section>
 
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="assets/cm-favicon.png" alt="Care Mobility logo" />
-      <span>Care Mobility</span>
-    </div>
-    <div class="footer-contact">
-      caremobility247@gmail.com
-    </div>
-  </div>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
-  <div class="footer-legal">
-    © 2026 Care Mobility · caremobility247@gmail.com
-  </div>
+<footer class="site-footer">
+    <div class="footer-content">
+        <img src="your-logo.png" alt="Care Mobility Logo" class="footer-logo">
+        
+        <div class="footer-info">
+            <p><a href="mailto:info@caremobility.com">info@caremobility.com</a></p>
+            <p>&copy; <span id="year"></span> Care Mobility. All rights reserved.</p>
+        </div>
+    </div>
 </footer>
 
-
+<script>
+    // Automatically updates the year
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>

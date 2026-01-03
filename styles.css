@@ -346,17 +346,7 @@ body {
   border-radius: var(--radius-md);
 }
 
-/* =========================
-   FOOTER
-========================= */
 
-.footer {
-  padding: 28px 40px;
-  border-top: 1px solid var(--border-light);
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-}
 
 /* =========================
    RESPONSIVE
@@ -409,49 +399,77 @@ body {
   }
 }
 
-.footer {
-  background: #f8fafc;
-  border-top: 1px solid var(--border-light);
-  padding: 32px 24px;
-}
-
-.footer-inner {
-  max-width: var(--content-max);
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-}
-
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 700;
-}
-
-.footer-brand img {
-  width: 32px;
-  height: 32px;
-}
-
-.footer-contact {
-  font-size: 14px;
-  color: var(--text-muted);
-}
-
-/* Mobile */
-@media (max-width: 640px) {
-  .footer-inner {
-    flex-direction: column;
+.final-cta {
+    padding: 60px 20px;
+    background-color: #ffffff; /* Or your site's secondary color */
     text-align: center;
-  }
 }
 
-.footer-legal {
-  margin-top: 16px;
-  font-size: 13px;
-  color: var(--text-soft);
-  text-align: center;
+.final-cta-inner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.final-cta h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.cta-disclaimer {
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Keeps the Calendly widget from bleeding out on mobile */
+.calendly-container {
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.site-footer {
+    background-color: #f8f9fa; /* Light grey or pick your brand color */
+    padding: 40px 20px;
+    text-align: center;
+    border-top: 1px solid #eee;
+    margin-top: 50px;
+}
+
+.footer-logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.footer-info p {
+    margin: 5px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.footer-info a {
+    color: #007bff; /* Link color */
+    text-decoration: none;
+}
+
+blockquote {
+    max-width: 600px;
+    margin: 40px auto; /* Centers the block itself */
+    text-align: center; /* Centers the text inside */
+    font-style: italic;
+    border-left: none; /* Removes the default side bar if you don't want it */
+    padding: 20px;
+    position: relative;
+}
+
+/* Optional: Adds decorative quotation marks */
+blockquote::before {
+    content: "“";
+    font-size: 50px;
+    color: #ccc;
+    display: block;
+    margin-bottom: -20px;
 }
