@@ -405,11 +405,3 @@ blockquote::before {
     min-height: auto;
   }
 }
-
-.alt-images {
-  align-items: flex-start;
-}
-
-.alt-images img {
-  max-height: 640px;
-}
