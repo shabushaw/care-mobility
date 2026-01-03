@@ -266,12 +266,12 @@ body {
 
 .alt-images img {
   width: 100%;
-  height: auto;              /* critical */
-  object-fit: contain;       /* show full image */
-  object-position: top;      /* anchor to top */
+  height: 100%;        /* stretch to text height */
+  object-fit: cover;  /* crop instead of shrink */
+  object-position: center;
   border-radius: var(--radius-lg);
   box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-} 
+}
 
 /* =========================
    FAQ & TABLES
