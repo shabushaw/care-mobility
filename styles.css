@@ -495,3 +495,7 @@ blockquote::before {
     gap: 10px;
   }
 }
+
+.card ul li {
+  margin-bottom: 6px;
+}
