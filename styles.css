@@ -478,9 +478,9 @@ blockquote::before {
 }
 
 .logo {
-  width: 36px;
-  height: 36px;
-  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: block;
 }
 
 .header-right a {
@@ -502,4 +502,13 @@ blockquote::before {
 
 .card ul li {
   margin-bottom: 6px;
+}
+
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-link:hover {
+  opacity: 0.9;
 }
