@@ -476,3 +476,22 @@ blockquote::before {
     padding: 60px 20px;
   }
 }
+
+.logo {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.header-right a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
