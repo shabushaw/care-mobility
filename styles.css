@@ -512,3 +512,18 @@ blockquote::before {
 .logo-link:hover {
   opacity: 0.9;
 }
+
+.persona-title {
+  display: block;
+  font-weight: 800;        /* much bolder */
+  font-size: 18px;         /* stronger visual hierarchy */
+  line-height: 1.3;
+  margin-bottom: 6px;
+  color: #0b2a5b;          /* matches your blue system */
+}
+
+.persona-title {
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: -0.2px;
+}
