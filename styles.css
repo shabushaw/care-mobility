@@ -578,3 +578,10 @@ blockquote::before {
   color: #4a5d7a;
   line-height: 1.6;
 }
+
+.trust-image img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 14px;
+  object-fit: cover;
+}
