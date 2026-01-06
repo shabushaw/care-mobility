@@ -24,7 +24,7 @@
 }
 
 /* =========================
-   BASE
+   BASE & SHARED
 ========================= */
 
 *,
@@ -40,10 +40,7 @@ body {
   line-height: 1.5;
 }
 
-/* =========================
-   SHARED CONTAINERS
-========================= */
-
+/* Shared width containers */
 .container,
 .why-inner,
 .faq-inner,
@@ -55,46 +52,26 @@ body {
 }
 
 /* =========================
-   HEADER (FINAL)
+   HEADER
 ========================= */
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 40px;
+  padding: 18px 40px;
   border-bottom: 1px solid var(--border-light);
-  background: #fff;
 }
 
 .header-left {
   display: flex;
   align-items: center;
+  gap: 12px;
 }
 
-.header-image {
-  height: 40px;          /* 🔑 KEY FIX */
-  width: auto;
-  max-height: 40px;
-  display: block;
-}
-
-.header-right a {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-/* Mobile header */
-@media (max-width: 640px) {
-  .header {
-    padding: 12px 20px;
-  }
-
-  .header-image {
-    height: 32px;
-  }
-}
+.logo { width: 40px; }
+.brand { font-weight: 700; }
+.tagline { font-size: 14px; color: var(--text-soft); }
 
 /* =========================
    SECTION UTILITIES
@@ -187,12 +164,60 @@ body {
   margin-bottom: 8px;
 }
 
-.card ul li {
-  margin-bottom: 6px;
+.card p {
+  margin: 0;
+  color: var(--text-muted);
 }
 
 /* =========================
-   ALT / STORY MODULES
+   SERVICES
+========================= */
+
+.services { padding: var(--pad-xl); }
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* =========================
+   HOW IT WORKS
+========================= */
+
+.how-it-works {
+  padding: var(--pad-xl);
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.how-subhead {
+  margin: 12px 0 32px;
+  font-size: 18px;
+  color: #4b5563;
+}
+
+.how-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.how-icon {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 10px;
+  color: var(--brand-blue);
+}
+
+.how-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 1.75;
+}
+
+/* =========================
+   ALT / STORY MODULES (PORTRAIT)
 ========================= */
 
 .alt-module {
@@ -204,7 +229,7 @@ body {
   margin: 0 auto;
   display: flex;
   gap: 64px;
-  align-items: stretch;
+  align-items: stretch; /* equal column height */
 }
 
 .alt-text {
@@ -227,6 +252,13 @@ body {
   margin-bottom: 20px;
 }
 
+.why-emphasis {
+  font-weight: 700;
+  color: var(--text-main);
+  border-left: 4px solid var(--brand-blue);
+  padding-left: 20px;
+}
+
 .alt-images {
   flex: 0.8;
   display: flex;
@@ -234,46 +266,116 @@ body {
 
 .alt-images img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 100%;        /* stretch to text height */
+  object-fit: cover;  /* crop instead of shrink */
+  object-position: center;
   border-radius: var(--radius-lg);
   box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
 /* =========================
-   TRUST / LICENSING MODULE
+   FAQ & TABLES
 ========================= */
 
-.trust-module {
-  background: #f6f9ff;
-  border-top: 1px solid #e3ebff;
-  border-bottom: 1px solid #e3ebff;
+.faq {
+  background: #fff;
+  border-top: 1px solid #e6ebf2;
 }
 
-.trust-oneline {
-  margin-top: 14px;
-  font-size: 14px;
-  color: #6a7c99;
-  line-height: 1.5;
+.faq-list {
+  display: grid;
+  gap: 1.5rem;
 }
 
-.trust-image img {
-  max-width: 420px;
+.faq-item {
+  background: var(--bg-faq);
+  padding: 1.5rem 1.75rem;
+  border-radius: var(--radius-md);
+}
+
+.comparison-table {
   width: 100%;
-  border-radius: 14px;
-  object-fit: cover;
+  border-collapse: collapse;
+  margin-top: 24px;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-light);
+  text-align: left;
 }
 
 /* =========================
-   PERSONA TITLES
+   BLOCKQUOTE
 ========================= */
 
-.persona-title {
-  font-weight: 800;
-  font-size: 19px;
-  letter-spacing: -0.2px;
-  margin-bottom: 6px;
-  color: #0b2a5b;
+blockquote {
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
+  font-style: italic;
+  padding: 20px;
+  position: relative;
+}
+
+blockquote::before {
+  content: "“";
+  font-size: 50px;
+  color: #ccc;
+  display: block;
+  margin-bottom: -20px;
+}
+
+/* =========================
+   CALENDLY & FOOTER
+========================= */
+
+.final-cta {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.final-cta-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cta-disclaimer {
+  max-width: 600px;
+  margin: 0 auto 30px;
+  color: var(--text-soft);
+}
+
+.calendly-container {
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.site-footer {
+  background-color: var(--bg-soft);
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 1px solid var(--border-light);
+  margin-top: 50px;
+}
+
+.footer-logo {
+  max-width: 150px;
+  margin-bottom: 20px;
+}
+
+.footer-info p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.footer-info a {
+  color: var(--brand-blue);
+  text-decoration: none;
 }
 
 /* =========================
@@ -293,7 +395,193 @@ body {
     align-items: center;
   }
 
+  .alt-images {
+    width: 100%;
+    max-width: 500px;
+  }
+
   .alt-images img {
     height: 400px;
+    min-height: auto;
   }
+}
+
+/* =========================
+   TRUST / LICENSING MODULE
+========================= */
+
+.trust-module {
+  background: #f6f9ff;
+  border-top: 1px solid #e3ebff;
+  border-bottom: 1px solid #e3ebff;
+}
+
+.trust-module h2 {
+  color: #0b2a5b;
+}
+
+.trust-module .alt-bullets li strong {
+  color: #0b2a5b;
+}
+
+.trust-note {
+  margin-top: 16px;
+  font-size: 15px;
+  color: #4a5d7a;
+  line-height: 1.6;
+}
+
+
+/* --- Header Cleanup --- */
+.header .logo, 
+.header .tagline {
+  display: none;
+}
+
+.header .brand {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--brand-blue); /* Assuming brand-blue is defined in your root */
+}
+
+/* --- Who We Serve Module --- */
+.who-we-serve {
+  padding: 80px 20px;
+  background-color: #ffffff;
+}
+
+.who-we-serve .container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-intro {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 50px;
+  max-width: 850px;
+}
+
+.who-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+}
+
+.who-card {
+  background: #f4f7f9;
+  padding: 30px;
+  border-radius: 12px;
+  border-top: 4px solid #0056b3; /* Brand accent color */
+  transition: transform 0.2s ease;
+}
+
+.who-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.who-card h3 {
+  font-size: 1.15rem;
+  color: #0056b3;
+  margin-bottom: 15px;
+  line-height: 1.3;
+}
+
+.who-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .who-we-serve {
+    padding: 60px 20px;
+  }
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  display: block;
+}
+
+.header-right a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.card ul li {
+  margin-bottom: 6px;
+}
+
+.card ul li {
+  margin-bottom: 6px;
+}
+
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-link:hover {
+  opacity: 0.9;
+}
+
+.persona-title {
+  display: block;
+  font-weight: 800;        /* much bolder */
+  font-size: 18px;         /* stronger visual hierarchy */
+  line-height: 1.3;
+  margin-bottom: 6px;
+  color: #0b2a5b;          /* matches your blue system */
+}
+
+.persona-title {
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: -0.2px;
+}
+
+/* =========================
+   TRUST / LICENSING MODULE
+========================= */
+
+.trust-module {
+  background: #f6f9ff;
+  border-top: 1px solid #e3ebff;
+  border-bottom: 1px solid #e3ebff;
+}
+
+.trust-module h2 {
+  color: #0b2a5b;
+}
+
+.trust-module .alt-bullets li strong {
+  color: #0b2a5b;
+}
+
+.trust-note {
+  margin-top: 16px;
+  font-size: 15px;
+  color: #4a5d7a;
+  line-height: 1.6;
+}
+
+.trust-image img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 14px;
+  object-fit: cover;
 }
