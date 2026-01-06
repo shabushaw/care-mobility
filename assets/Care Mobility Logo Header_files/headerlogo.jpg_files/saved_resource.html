@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<!-- saved from url=(0012)about:srcdoc -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.13/html-to-image.min.js" integrity="sha512-iZ2ORl595Wx6miw+GuadDet4WQbdSWS3JLMoNfY8cRGoEFy6oT3G9IbcrBeL6AfkgpA51ETt/faX6yLV+/gFJg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      (function() {
+        const originalConsole = window.console;
+        window.console = {
+          log: (...args) => {
+            originalConsole.log(...args);
+            window.parent.postMessage({ type: 'console', message: args.join(' ') }, '*');
+          },
+          error: (...args) => {
+            originalConsole.error(...args);
+            window.parent.postMessage({ type: 'console', message: 'Error: ' + args.join(' ') }, '*');
+          },
+          warn: (...args) => {
+            originalConsole.warn(...args);
+            window.parent.postMessage({ type: 'console', message: 'Warning: ' + args.join(' ') }, '*');
+          }
+        };
+
+        let requestId = 0;
+        let callbacksMap = new Map();
+        let streamControllers = new Map();
+        
+        window.claude = {
+          complete: (prompt) => {
+            return new Promise((resolve, reject) => {
+              const id = requestId++;
+              callbacksMap.set(id, { resolve, reject });
+              window.parent.postMessage({ type: 'claudeComplete', id, prompt }, '*');
+            });
+          }
+        };
+
+        window.storage = {
+          get: (key, shared = false) => {
+            return new Promise((resolve, reject) => {
+              const id = requestId++;
+              callbacksMap.set(id, { resolve, reject });
+              window.parent.postMessage({ type: 'storageGet', id, key, shared }, '*');
+            });
+          },
+          set: (key, value, shared = false) => {
+            return new Promise((resolve, reject) => {
+              const id = requestId++;
+              callbacksMap.set(id, { resolve, reject });
+              window.parent.postMessage({ type: 'storageSet', id, key, value, shared }, '*');
+            });
+          },
+          delete: (key, shared = false) => {
+            return new Promise((resolve, reject) => {
+              const id = requestId++;
+              callbacksMap.set(id, { resolve, reject });
+              window.parent.postMessage({ type: 'storageDelete', id, key, shared }, '*');
+            });
+          },
+          list: (prefix, shared = false) => {
+            return new Promise((resolve, reject) => {
+              const id = requestId++;
+              callbacksMap.set(id, { resolve, reject });
+              window.parent.postMessage({ type: 'storageList', id, prefix, shared }, '*');
+            });
+          }
+        };
+
+        let pendingBlobs = new Map();
+        URL.createObjectURL = (blob) => {
+          // Store the blob and create an ID and URL for it
+          const blobId = `blob-${Date.now()}-${Math.random()}`;
+          pendingBlobs.set(blobId, blob);
+          return `blob-request://${blobId}`;
+        };
+
+        URL.revokeObjectURL = (url) => {
+          // Remove the blob from our store
+          const blobId = url.replace("blob-request://", "");
+          pendingBlobs.delete(blobId);
+        };
+
+        const getBlobFromURL = (url) => {
+          const blobId = url.replace("blob-request://", "");
+          return pendingBlobs.get(blobId);
+        };
+
+        // Override global fetch with streaming support
+        window.fetch = (url, init = {}) => {
+          return new Promise((resolve, reject) => {
+            const id = requestId++;
+            const channelId = `fetch-${id}-${Date.now()}`;
+            
+            callbacksMap.set(id, { 
+              resolve: (response) => {
+                // Create a ReadableStream for the response body
+                const stream = new ReadableStream({
+                  start(controller) {
+                    streamControllers.set(channelId, controller);
+                  },
+                  cancel() {
+                    streamControllers.delete(channelId);
+                  }
+                });
+                
+                // Create and return the Response with the stream
+                resolve(new Response(stream, {
+                  status: response.status,
+                  statusText: response.statusText,
+                  headers: response.headers
+                }));
+              },
+              reject,
+              channelId
+            });
+            
+            window.parent.postMessage({
+              type: 'proxyFetch',
+              id,
+              url,
+              init,
+              channelId
+            }, '*');
+          });
+        };
+
+        window.addEventListener('message', async (event) => {
+          if (event.data.type === 'takeScreenshot') {
+            const rootElement = document.getElementById('artifacts-component-root-html');
+            if (!rootElement) {
+              window.parent.postMessage({
+                type: 'screenshotError',
+                error: new Error('Root element not found'),
+              }, '*');
+            }
+            const screenshot = await htmlToImage.toPng(rootElement, {
+              imagePlaceholder:
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdjePDgwX8ACOQDoNsk0PMAAAAASUVORK5CYII=",
+            });
+            window.parent.postMessage({
+              type: 'screenshotData',
+              data: screenshot,
+            }, '*');
+          } else if (event.data.type === 'claudeComplete') {
+            const callback = callbacksMap.get(event.data.id);
+            if (event.data.error) {
+              callback.reject(new Error(event.data.error));
+            } else {
+              callback.resolve(event.data.completion);
+            }
+            callbacksMap.delete(event.data.id);
+          } else if (event.data.type === 'proxyFetchResponse') {
+            const callback = callbacksMap.get(event.data.id);
+            if (event.data.error) {
+              callback.reject(new Error(event.data.error));
+              callbacksMap.delete(event.data.id);
+            } else {
+              // Initial response with headers, status, etc.
+              callback.resolve({
+                status: event.data.status,
+                statusText: event.data.statusText,
+                headers: event.data.headers
+              });
+              // Don't delete the callback yet if streaming
+              if (!event.data.body) {
+                callbacksMap.delete(event.data.id);
+              }
+            }
+          } else if (event.data.type === 'proxyFetchStream') {
+            // Handle streaming data chunks
+            const controller = streamControllers.get(event.data.channelId);
+            if (controller) {
+              if (event.data.error) {
+                controller.error(new Error(event.data.error));
+                streamControllers.delete(event.data.channelId);
+              } else if (event.data.done) {
+                controller.close();
+                streamControllers.delete(event.data.channelId);
+                // Clean up the callback
+                const callback = Array.from(callbacksMap.entries()).find(
+                  ([_, value]) => value.channelId === event.data.channelId
+                );
+                if (callback) {
+                  callbacksMap.delete(callback[0]);
+                }
+              } else if (event.data.chunk) {
+                controller.enqueue(new Uint8Array(event.data.chunk));
+              }
+            }
+          } else if (event.data.type === 'storageGet') {
+            const callback = callbacksMap.get(event.data.id);
+            if (event.data.error) {
+              callback.reject(new Error(event.data.error));
+            } else {
+              callback.resolve(event.data.result);
+            }
+            callbacksMap.delete(event.data.id);
+          } else if (event.data.type === 'storageSet') {
+            const callback = callbacksMap.get(event.data.id);
+            if (event.data.error) {
+              callback.reject(new Error(event.data.error));
+            } else {
+              callback.resolve(event.data.result);
+            }
+            callbacksMap.delete(event.data.id);
+          } else if (event.data.type === 'storageDelete') {
+            const callback = callbacksMap.get(event.data.id);
+            if (event.data.error) {
+              callback.reject(new Error(event.data.error));
+            } else {
+              callback.resolve(event.data.result);
+            }
+            callbacksMap.delete(event.data.id);
+          } else if (event.data.type === 'storageList') {
+            const callback = callbacksMap.get(event.data.id);
+            if (event.data.error) {
+              callback.reject(new Error(event.data.error));
+            } else {
+              callback.resolve(event.data.result);
+            }
+            callbacksMap.delete(event.data.id);
+          }
+        });
+
+        window.addEventListener('click', (event) => {
+          const isEl = event.target instanceof HTMLElement;
+          if (!isEl) return;
+    
+          // find ancestor links
+          const linkEl = event.target.closest("a");
+          if (!linkEl || !linkEl.href) return;
+    
+          event.preventDefault();
+          event.stopImmediatePropagation();
+    
+          if (linkEl.href.startsWith("blob-request:")) {
+            const blob = getBlobFromURL(linkEl.href);
+            if (!blob) return;
+            void blob.arrayBuffer().then((data) => {
+              window.parent.postMessage({
+                type: "downloadFile",
+                filename: linkEl.download,
+                data,
+                mimeType: blob.type || "application/octet-stream",
+              });
+            });
+          } else if (linkEl.href.startsWith("data:")) {
+            const [header, base64Data] = linkEl.href.split(",");
+            const mimeMatch = header.match(/data:([^;]+)/);
+            const mimeType = mimeMatch ? mimeMatch[1] : "application/octet-stream";
+            const binaryString = atob(base64Data);
+            const data = Uint8Array.from(binaryString, (c) =>
+              c.charCodeAt(0),
+            ).buffer;
+            window.parent.postMessage({
+              type: "downloadFile",
+              filename: linkEl.download,
+              data,
+              mimeType,
+            });
+          } else {
+            let linkUrl;
+            try {
+              linkUrl = new URL(linkEl.href);
+            } catch (error) {
+              return;
+            }
+    
+            if (linkUrl.hostname === window.location.hostname) return;
+      
+            window.parent.postMessage({
+              type: 'openExternal',
+              href: linkEl.href,
+            }, '*');
+          }
+      });
+
+        const originalOpen = window.open;
+        window.open = function (url) {
+          window.parent.postMessage({
+            type: "openExternal",
+            href: url,
+          }, "*");
+        };
+
+        window.addEventListener('error', (event) => {
+          window.parent.postMessage({ type: 'console', message: 'Uncaught Error: ' + event.message }, '*');
+        });
+      })();
+    </script>
+  
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care Mobility - Brand Identity Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Outfit:wght@300;400;600;800&amp;display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cm-blue: #1a5fa8;
+            --cm-blue-dark: #124578;
+            --cm-blue-light: #2b7ac9;
+            --cm-teal: #0e8c8c;
+            --cm-orange: #e67e22;
+            --cm-gray-50: #f8f9fa;
+            --cm-gray-100: #e9ecef;
+            --cm-gray-200: #dee2e6;
+            --cm-gray-800: #343a40;
+            --cm-gray-900: #212529;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--cm-gray-900);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 3rem 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--cm-blue-dark);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .header .tagline {
+            font-size: 1.25rem;
+            color: var(--cm-gray-800);
+            font-weight: 400;
+        }
+
+        .brand-descriptor {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 3rem;
+            animation: fadeIn 0.8s ease 0.2s both;
+        }
+
+        .brand-descriptor h2 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--cm-blue);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .brand-descriptor p {
+            color: var(--cm-gray-800);
+            font-size: 1.05rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--cm-blue-dark);
+            margin-bottom: 2rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid var(--cm-blue);
+        }
+
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .logo-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            animation: scaleIn 0.6s ease both;
+        }
+
+        .logo-card:nth-child(1) { animation-delay: 0.1s; }
+        .logo-card:nth-child(2) { animation-delay: 0.2s; }
+        .logo-card:nth-child(3) { animation-delay: 0.3s; }
+        .logo-card:nth-child(4) { animation-delay: 0.4s; }
+        .logo-card:nth-child(5) { animation-delay: 0.5s; }
+        .logo-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .logo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(26, 95, 168, 0.2);
+        }
+
+        .logo-card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--cm-blue-dark);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .logo-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            background: var(--cm-gray-50);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-display.dark {
+            background: var(--cm-gray-900);
+        }
+
+        .logo-display.gradient {
+            background: linear-gradient(135deg, var(--cm-blue) 0%, var(--cm-teal) 100%);
+        }
+
+        .specs {
+            font-size: 0.9rem;
+            color: var(--cm-gray-800);
+            padding-top: 1rem;
+            border-top: 1px solid var(--cm-gray-200);
+        }
+
+        /* Logo SVG Styles */
+        .circle-logo {
+            width: 180px;
+            height: 180px;
+        }
+
+        .square-logo {
+            width: 180px;
+            height: 180px;
+        }
+
+        .horizontal-logo {
+            width: 350px;
+            height: auto;
+        }
+
+        .vertical-logo {
+            width: 200px;
+            height: auto;
+        }
+
+        .stacked-logo {
+            width: 220px;
+            height: auto;
+        }
+
+        .icon-only {
+            width: 120px;
+            height: 120px;
+        }
+
+        .wordmark-only {
+            width: 300px;
+            height: auto;
+        }
+
+        /* Application Examples */
+        .application-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .application-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .application-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(26, 95, 168, 0.2);
+        }
+
+        .application-preview {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .business-card {
+            background: white;
+            border: 1px solid var(--cm-gray-200);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .vehicle-wrap {
+            background: linear-gradient(to right, var(--cm-gray-100), white);
+        }
+
+        .app-icon {
+            background: var(--cm-gray-50);
+        }
+
+        .application-info {
+            padding: 1.5rem;
+        }
+
+        .application-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--cm-blue-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .application-desc {
+            font-size: 0.95rem;
+            color: var(--cm-gray-800);
+        }
+
+        /* Color Palette */
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .color-swatch {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .color-sample {
+            height: 120px;
+            width: 100%;
+        }
+
+        .color-info {
+            padding: 1rem;
+        }
+
+        .color-name {
+            font-weight: 600;
+            color: var(--cm-gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .color-hex {
+            font-size: 0.85rem;
+            color: var(--cm-gray-800);
+            font-family: 'Courier New', monospace;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .logo-grid,
+            .application-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .horizontal-logo {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body id="artifacts-component-root-html">
+    <div class="container">
+        <div class="header">
+            <h1>Care Mobility</h1>
+            <p class="tagline">Brand Identity &amp; Logo System</p>
+        </div>
+
+        <div class="brand-descriptor">
+            <h2>About Care Mobility</h2>
+            <p>Care Mobility is a dedicated transportation company specializing in recurring medical appointments for seniors. Our mission is to provide reliable, compassionate transportation services that ensure seniors never miss their important healthcare appointments. The CM brand represents trust, care, and dependability in senior healthcare transportation.</p>
+        </div>
+
+        <!-- Primary Logo Variations -->
+        <section class="section">
+            <h2 class="section-title">Primary Logo Variations</h2>
+            <div class="logo-grid">
+                <!-- Original Circle Logo -->
+                <div class="logo-card">
+                    <div class="logo-card-title">Circle Badge - Primary</div>
+                    <div class="logo-display">
+                        <svg class="circle-logo" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="500" cy="500" r="480" fill="#1a5fa8"></circle>
+                            <text x="500" y="650" font-family="Arial, sans-serif" font-size="500" font-weight="bold" fill="white" text-anchor="middle">CM</text>
+                        </svg>
+                    </div>
+                    <div class="specs">
+                        <strong>Use:</strong> Primary brand mark, social media, app icon<br>
+                        <strong>Format:</strong> Square 1:1 ratio
+                    </div>
+                </div>
+
+                <!-- Horizontal Logo -->
+                <div class="logo-card">
+                    <div class="logo-card-title">Horizontal Lockup</div>
+                    <div class="logo-display">
+                        <svg class="horizontal-logo" viewBox="0 0 800 250" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="125" cy="125" r="115" fill="#1a5fa8"></circle>
+                            <text x="125" y="165" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="white" text-anchor="middle">CM</text>
+                            <text x="280" y="130" font-family="Arial, sans-serif" font-size="70" font-weight="700" fill="#1a5fa8">CARE</text>
+                            <text x="280" y="195" font-family="Arial, sans-serif" font-size="70" font-weight="300" fill="#124578">MOBILITY</text>
+                        </svg>
+                    </div>
+                    <div class="specs">
+                        <strong>Use:</strong> Website header, business cards, letterhead<br>
+                        <strong>Format:</strong> Wide horizontal layout
+                    </div>
+                </div>
+
+                <!-- Vertical Stacked Logo -->
+                <div class="logo-card">
+                    <div class="logo-card-title">Vertical Stacked</div>
+                    <div class="logo-display">
+                        <svg class="vertical-logo" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="200" cy="150" r="140" fill="#1a5fa8"></circle>
+                            <text x="200" y="200" font-family="Arial, sans-serif" font-size="140" font-weight="bold" fill="white" text-anchor="middle">CM</text>
+                            <text x="200" y="400" font-family="Arial, sans-serif" font-size="80" font-weight="700" fill="#1a5fa8" text-anchor="middle">CARE</text>
+                            <text x="200" y="500" font-family="Arial, sans-serif" font-size="80" font-weight="300" fill="#124578" text-anchor="middle">MOBILITY</text>
+                        </svg>
+                    </div>
+                    <div class="specs">
+                        <strong>Use:</strong> Posters, vertical banners, signage<br>
+                        <strong>Format:</strong> Tall vertical orientation
+                    </div>
+                </div>
+
+                <!-- Square Compact Logo -->
+                <div class="logo-card">
+                    <div class="logo-card-title">Square Compact</div>
+                    <div class="logo-display">
+                        <svg class="square-logo" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="500" height="500" fill="#1a5fa8" rx="40"></rect>
+                            <text x="250" y="230" font-family="Arial, sans-serif" font-size="180" font-weight="bold" fill="white" text-anchor="middle">CM</text>
+                            <text x="250" y="340" font-family="Arial, sans-serif" font-size="45" font-weight="600" fill="white" text-anchor="middle">CARE MOBILITY</text>
+                            <line x1="80" y1="300" x2="420" y2="300" stroke="white" stroke-width="3" opacity="0.5"></line>
+                        </svg>
+                    </div>
+                    <div class="specs">
+                        <strong>Use:</strong> App tiles, thumbnails, small prints<br>
+                        <strong>Format:</strong> Square with rounded corners
+                    </div>
+                </div>
+
+                <!-- Icon Only -->
+                <div class="logo-card">
+                    <div class="logo-card-title">Icon Mark Only</div>
+                    <div class="logo-display">
+                        <svg class="icon-only" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="250" cy="250" r="240" fill="#1a5fa8"></circle>
+                            <text x="250" y="345" font-family="Arial, sans-serif" font-size="280" font-weight="bold" fill="white" text-anchor="middle">CM</text>
+                        </svg>
+                    </div>
+                    <div class="specs">
+                        <strong>Use:</strong> Favicon, small icons, watermark<br>
+                        <strong>Min size:</strong> 32px × 32px
+                    </div>
+                </div>
+
+                <!-- Wordmark Only -->
+                <div class="logo-card">
+                    <div class="logo-card-title">Wordmark Only</div>
+                    <div class="logo-display">
+                        <svg class="wordmark-only" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+                            <text x="300" y="90" font-family="Arial, sans-serif" font-size="85" font-weight="700" fill="#1a5fa8" text-anchor="middle">CARE</text>
+                            <text x="300" y="170" font-family="Arial, sans-serif" font-size="85" font-weight="300" fill="#124578" text-anchor="middle">MOBILITY</text>
+                        </svg>
+                    </div>
+                    <div class="specs">
+                        <strong>Use:</strong> When icon is redundant, text-focused layouts<br>
+                        <strong>Format:</strong> Typography only
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alternate Color Variations -->
+        <section class="section">
+            <h2 class="section-title">Color Variations</h2>
+            <div class="logo-grid">
+                <!-- White on Dark -->
+                <div class="logo-card">
+                    <div class="logo-card-title">Reverse (White on Dark)</div>
+                    <div class="logo-display dark">
+                        <svg class="horizontal-logo" viewBox="0 0 800 250" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="125" cy="125" r="115" fill="white"></circle>
+                            <text x="125" y="165" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="#1a5fa8" text-anchor="middle">CM</text>
+                            <text x="280" y="130" font-family="Arial, sans-serif" font-size="70" font-weight="700" fill="white">CARE</text>
+                            <text x="280" y="195" font-family="Arial, sans-serif" font-size="70" font-weight="300" fill="#e9ecef">MOBILITY</text>
+                        </svg>
+                    </div>
+                    <div class="specs">
+                        <strong>Use:</strong> Dark backgrounds, night mode, video overlays<br>
+                        <strong>Format:</strong> Inverted colors for dark surfaces
+                    </div>
+                </div>
+
+                <!-- Monochrome Black -->
+                <div class="logo-card">
+                    <div class="logo-card-title">Monochrome Black</div>
+                    <div class="logo-display">
+                        <svg class="circle-logo" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="500" cy="500" r="480" fill="#212529"></circle>
+                            <text x="500" y="650" font-family="Arial, sans-serif" font-size="500" font-weight="bold" fill="white" text-anchor="middle">CM</text>
+                        </svg>
+                    </div>
+                    <div class="specs">
+                        <strong>Use:</strong> Black &amp; white printing, newspapers, photocopies<br>
+                        <strong>Format:</strong> Single color - black
+                    </div>
+                </div>
+
+                <!-- Two-Tone Gradient -->
+                <div class="logo-card">
+                    <div class="logo-card-title">Gradient Accent</div>
+                    <div class="logo-display gradient">
+                        <svg class="circle-logo" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <lineargradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:rgba(255,255,255,0.3);stop-opacity:1"></stop>
+                                    <stop offset="100%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:1"></stop>
+                                </lineargradient>
+                            </defs>
+                            <circle cx="500" cy="500" r="480" fill="url(#grad1)"></circle>
+                            <text x="500" y="650" font-family="Arial, sans-serif" font-size="500" font-weight="bold" fill="white" text-anchor="middle">CM</text>
+                        </svg>
+                    </div>
+                    <div class="specs">
+                        <strong>Use:</strong> Digital displays, premium materials, special editions<br>
+                        <strong>Format:</strong> Gradient overlay effect
+                    </div>
+                </div>
+
+                <!-- Outlined Version -->
+                <div class="logo-card">
+                    <div class="logo-card-title">Outlined (Transparent)</div>
+                    <div class="logo-display">
+                        <svg class="circle-logo" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="500" cy="500" r="480" fill="none" stroke="#1a5fa8" stroke-width="40"></circle>
+                            <text x="500" y="650" font-family="Arial, sans-serif" font-size="500" font-weight="bold" fill="#1a5fa8" text-anchor="middle">CM</text>
+                        </svg>
+                    </div>
+                    <div class="specs">
+                        <strong>Use:</strong> Overlays, watermarks, window decals<br>
+                        <strong>Format:</strong> Outline only, transparent fill
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brand Color Palette -->
+        <section class="section">
+            <h2 class="section-title">Brand Color Palette</h2>
+            <div class="color-palette">
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #1a5fa8;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Primary Blue</div>
+                        <div class="color-hex">#1a5fa8</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #124578;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Dark Blue</div>
+                        <div class="color-hex">#124578</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #2b7ac9;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Light Blue</div>
+                        <div class="color-hex">#2b7ac9</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #0e8c8c;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Teal Accent</div>
+                        <div class="color-hex">#0e8c8c</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #e67e22;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Orange Accent</div>
+                        <div class="color-hex">#e67e22</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-sample" style="background: #ffffff; border: 1px solid #dee2e6;"></div>
+                    <div class="color-info">
+                        <div class="color-name">White</div>
+                        <div class="color-hex">#ffffff</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Application Examples -->
+        <section class="section">
+            <h2 class="section-title">Brand Applications</h2>
+            <div class="application-grid">
+                <!-- Business Card -->
+                <div class="application-card">
+                    <div class="application-preview business-card">
+                        <svg width="320" height="180" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="320" height="180" fill="white"></rect>
+                            <rect width="320" height="60" fill="#1a5fa8"></rect>
+                            <circle cx="40" cy="30" r="20" fill="white"></circle>
+                            <text x="40" y="38" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#1a5fa8" text-anchor="middle">CM</text>
+                            <text x="75" y="32" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="white">CARE MOBILITY</text>
+                            <text x="75" y="48" font-family="Arial, sans-serif" font-size="10" font-weight="300" fill="white">Senior Medical Transportation</text>
+                            
+                            <text x="20" y="90" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#1a5fa8">John Anderson</text>
+                            <text x="20" y="108" font-family="Arial, sans-serif" font-size="11" fill="#124578">Transportation Coordinator</text>
+                            
+                            <text x="20" y="140" font-family="Arial, sans-serif" font-size="9" fill="#343a40">📞 (555) 123-4567</text>
+                            <text x="20" y="155" font-family="Arial, sans-serif" font-size="9" fill="#343a40">📧 john@caremobility.com</text>
+                            <text x="20" y="170" font-family="Arial, sans-serif" font-size="9" fill="#343a40">🌐 www.caremobility.com</text>
+                        </svg>
+                    </div>
+                    <div class="application-info">
+                        <div class="application-title">Business Card</div>
+                        <div class="application-desc">Professional card design with primary branding and contact information</div>
+                    </div>
+                </div>
+
+                <!-- Vehicle Wrap Concept -->
+                <div class="application-card">
+                    <div class="application-preview vehicle-wrap">
+                        <svg width="350" height="200" viewBox="0 0 350 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Vehicle outline -->
+                            <rect x="30" y="80" width="290" height="90" rx="10" fill="white" stroke="#1a5fa8" stroke-width="3"></rect>
+                            <rect x="50" y="60" width="250" height="30" rx="5" fill="white" stroke="#1a5fa8" stroke-width="3"></rect>
+                            <circle cx="90" cy="175" r="20" fill="#212529"></circle>
+                            <circle cx="90" cy="175" r="10" fill="#dee2e6"></circle>
+                            <circle cx="280" cy="175" r="20" fill="#212529"></circle>
+                            <circle cx="280" cy="175" r="10" fill="#dee2e6"></circle>
+                            
+                            <!-- Branding -->
+                            <circle cx="85" cy="115" r="30" fill="#1a5fa8"></circle>
+                            <text x="85" y="127" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="white" text-anchor="middle">CM</text>
+                            <text x="150" y="110" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#1a5fa8">CARE</text>
+                            <text x="150" y="135" font-family="Arial, sans-serif" font-size="24" font-weight="300" fill="#124578">MOBILITY</text>
+                            <text x="175" y="160" font-family="Arial, sans-serif" font-size="11" fill="#124578">Senior Medical Transportation</text>
+                        </svg>
+                    </div>
+                    <div class="application-info">
+                        <div class="application-title">Vehicle Branding</div>
+                        <div class="application-desc">Fleet vehicle wrap design for immediate brand recognition</div>
+                    </div>
+                </div>
+
+                <!-- Mobile App Icon -->
+                <div class="application-card">
+                    <div class="application-preview app-icon">
+                        <div style="display: flex; gap: 2rem; align-items: center;">
+                            <div style="text-align: center;">
+                                <svg width="100" height="100" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="500" height="500" fill="#1a5fa8" rx="100"></rect>
+                                    <text x="250" y="345" font-family="Arial, sans-serif" font-size="280" font-weight="bold" fill="white" text-anchor="middle">CM</text>
+                                </svg>
+                                <div style="margin-top: 0.5rem; font-size: 0.75rem; color: #343a40;">iOS Style</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="100" height="100" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <lineargradient id="appGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#2b7ac9;stop-opacity:1"></stop>
+                                            <stop offset="100%" style="stop-color:#1a5fa8;stop-opacity:1"></stop>
+                                        </lineargradient>
+                                    </defs>
+                                    <rect width="500" height="500" fill="url(#appGrad)" rx="100"></rect>
+                                    <circle cx="250" cy="250" r="180" fill="white" opacity="0.2"></circle>
+                                    <text x="250" y="345" font-family="Arial, sans-serif" font-size="280" font-weight="bold" fill="white" text-anchor="middle">CM</text>
+                                </svg>
+                                <div style="margin-top: 0.5rem; font-size: 0.75rem; color: #343a40;">Android Style</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="application-info">
+                        <div class="application-title">Mobile App Icons</div>
+                        <div class="application-desc">Platform-specific app icon designs for iOS and Android</div>
+                    </div>
+                </div>
+
+                <!-- Letterhead -->
+                <div class="application-card">
+                    <div class="application-preview" style="background: white;">
+                        <svg width="280" height="220" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="280" height="220" fill="white"></rect>
+                            <!-- Header -->
+                            <circle cx="30" cy="25" r="18" fill="#1a5fa8"></circle>
+                            <text x="30" y="32" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white" text-anchor="middle">CM</text>
+                            <text x="55" y="24" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#1a5fa8">CARE MOBILITY</text>
+                            <text x="55" y="36" font-family="Arial, sans-serif" font-size="8" font-weight="300" fill="#124578">Senior Medical Transportation</text>
+                            
+                            <!-- Decorative line -->
+                            <line x1="20" y1="50" x2="260" y2="50" stroke="#1a5fa8" stroke-width="1"></line>
+                            
+                            <!-- Body placeholder -->
+                            <line x1="20" y1="70" x2="200" y2="70" stroke="#dee2e6" stroke-width="1"></line>
+                            <line x1="20" y1="80" x2="220" y2="80" stroke="#dee2e6" stroke-width="1"></line>
+                            <line x1="20" y1="90" x2="190" y2="90" stroke="#dee2e6" stroke-width="1"></line>
+                            <line x1="20" y1="100" x2="210" y2="100" stroke="#dee2e6" stroke-width="1"></line>
+                            
+                            <!-- Footer -->
+                            <text x="140" y="200" font-family="Arial, sans-serif" font-size="7" fill="#343a40" text-anchor="middle">123 Healthcare Way, Medical District, CA 90210</text>
+                            <text x="140" y="210" font-family="Arial, sans-serif" font-size="7" fill="#343a40" text-anchor="middle">(555) 123-4567 | info@caremobility.com | www.caremobility.com</text>
+                        </svg>
+                    </div>
+                    <div class="application-info">
+                        <div class="application-title">Letterhead</div>
+                        <div class="application-desc">Professional correspondence template with brand identity</div>
+                    </div>
+                </div>
+
+                <!-- Social Media Profile -->
+                <div class="application-card">
+                    <div class="application-preview" style="background: linear-gradient(135deg, #1a5fa8 0%, #2b7ac9 100%);">
+                        <svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="150" cy="70" r="40" fill="white"></circle>
+                            <text x="150" y="85" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#1a5fa8" text-anchor="middle">CM</text>
+                            <text x="150" y="130" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="white" text-anchor="middle">CARE MOBILITY</text>
+                            <text x="150" y="150" font-family="Arial, sans-serif" font-size="12" fill="white" opacity="0.9" text-anchor="middle">Senior Medical Transportation</text>
+                            <text x="150" y="175" font-family="Arial, sans-serif" font-size="11" fill="white" opacity="0.8" text-anchor="middle">📍 Serving the Greater Medical District | 🚐 Reliable &amp; Compassionate</text>
+                        </svg>
+                    </div>
+                    <div class="application-info">
+                        <div class="application-title">Social Media Cover</div>
+                        <div class="application-desc">Facebook, LinkedIn, and Twitter header design</div>
+                    </div>
+                </div>
+
+                <!-- Signage -->
+                <div class="application-card">
+                    <div class="application-preview" style="background: #f8f9fa;">
+                        <svg width="280" height="200" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="20" y="20" width="240" height="160" fill="#1a5fa8" rx="8"></rect>
+                            <circle cx="140" cy="75" r="35" fill="white"></circle>
+                            <text x="140" y="88" font-family="Arial, sans-serif" font-size="35" font-weight="bold" fill="#1a5fa8" text-anchor="middle">CM</text>
+                            <text x="140" y="130" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="white" text-anchor="middle">CARE MOBILITY</text>
+                            <text x="140" y="153" font-family="Arial, sans-serif" font-size="13" fill="white" opacity="0.9" text-anchor="middle">Senior Medical Transportation Services</text>
+                            <text x="140" y="170" font-family="Arial, sans-serif" font-size="11" fill="white" opacity="0.8" text-anchor="middle">Call (555) 123-4567</text>
+                        </svg>
+                    </div>
+                    <div class="application-info">
+                        <div class="application-title">Entrance Signage</div>
+                        <div class="application-desc">Office and facility wayfinding signage design</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body></html>
