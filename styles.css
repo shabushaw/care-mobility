@@ -52,14 +52,14 @@ body {
 }
 
 /* =========================
-   HEADER
+   HEADER - REDUCED SIZE
 ========================= */
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 40px;
+  padding: 12px 40px;
   border-bottom: 1px solid var(--border-light);
 }
 
@@ -69,9 +69,35 @@ body {
   gap: 12px;
 }
 
-.logo { width: 40px; }
-.brand { font-weight: 700; }
-.tagline { font-size: 14px; color: var(--text-soft); }
+.logo {
+  width: 120px;
+  height: auto;
+  display: block;
+}
+
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-link:hover {
+  opacity: 0.9;
+}
+
+.brand {
+  font-weight: 700;
+}
+
+.tagline {
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+.header-right a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+}
 
 /* =========================
    SECTION UTILITIES
@@ -169,6 +195,10 @@ body {
   color: var(--text-muted);
 }
 
+.card ul li {
+  margin-bottom: 6px;
+}
+
 /* =========================
    SERVICES
 ========================= */
@@ -229,7 +259,7 @@ body {
   margin: 0 auto;
   display: flex;
   gap: 64px;
-  align-items: stretch; /* equal column height */
+  align-items: stretch;
 }
 
 .alt-text {
@@ -252,6 +282,17 @@ body {
   margin-bottom: 20px;
 }
 
+.alt-bullets {
+  list-style: none;
+  padding: 0;
+}
+
+.alt-bullets li {
+  margin-bottom: 16px;
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
 .why-emphasis {
   font-weight: 700;
   color: var(--text-main);
@@ -266,8 +307,8 @@ body {
 
 .alt-images img {
   width: 100%;
-  height: 100%;        /* stretch to text height */
-  object-fit: cover;  /* crop instead of shrink */
+  height: 100%;
+  object-fit: cover;
   object-position: center;
   border-radius: var(--radius-lg);
   box-shadow: 0 20px 40px rgba(0,0,0,0.1);
@@ -320,7 +361,7 @@ blockquote {
 }
 
 blockquote::before {
-  content: "“";
+  content: """;
   font-size: 50px;
   color: #ccc;
   display: block;
@@ -379,72 +420,9 @@ blockquote::before {
 }
 
 /* =========================
-   RESPONSIVE
+   WHO WE SERVE MODULE
 ========================= */
 
-@media (max-width: 1024px) {
-  .hero { grid-template-columns: 1fr; }
-  .grid-3 { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 768px) {
-  .grid-3 { grid-template-columns: 1fr; }
-
-  .alt-split {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .alt-images {
-    width: 100%;
-    max-width: 500px;
-  }
-
-  .alt-images img {
-    height: 400px;
-    min-height: auto;
-  }
-}
-
-/* =========================
-   TRUST / LICENSING MODULE
-========================= */
-
-.trust-module {
-  background: #f6f9ff;
-  border-top: 1px solid #e3ebff;
-  border-bottom: 1px solid #e3ebff;
-}
-
-.trust-module h2 {
-  color: #0b2a5b;
-}
-
-.trust-module .alt-bullets li strong {
-  color: #0b2a5b;
-}
-
-.trust-note {
-  margin-top: 16px;
-  font-size: 15px;
-  color: #4a5d7a;
-  line-height: 1.6;
-}
-
-
-/* --- Header Cleanup --- */
-.header .logo, 
-.header .tagline {
-  display: none;
-}
-
-.header .brand {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--brand-blue); /* Assuming brand-blue is defined in your root */
-}
-
-/* --- Who We Serve Module --- */
 .who-we-serve {
   padding: 80px 20px;
   background-color: #ffffff;
@@ -473,7 +451,7 @@ blockquote::before {
   background: #f4f7f9;
   padding: 30px;
   border-radius: 12px;
-  border-top: 4px solid #0056b3; /* Brand accent color */
+  border-top: 4px solid #0056b3;
   transition: transform 0.2s ease;
 }
 
@@ -496,62 +474,14 @@ blockquote::before {
   margin: 0;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .who-we-serve {
-    padding: 60px 20px;
-  }
-}
-
-.logo {
-  width: 44px;
-  height: 44px;
-  display: block;
-}
-
-.header-right a {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-@media (max-width: 640px) {
-  .header {
-    flex-direction: column;
-    gap: 10px;
-  }
-}
-
-.card ul li {
-  margin-bottom: 6px;
-}
-
-.card ul li {
-  margin-bottom: 6px;
-}
-
-.logo-link {
-  display: inline-flex;
-  align-items: center;
-}
-
-.logo-link:hover {
-  opacity: 0.9;
-}
-
 .persona-title {
   display: block;
-  font-weight: 800;        /* much bolder */
-  font-size: 18px;         /* stronger visual hierarchy */
-  line-height: 1.3;
-  margin-bottom: 6px;
-  color: #0b2a5b;          /* matches your blue system */
-}
-
-.persona-title {
   font-weight: 800;
   font-size: 19px;
   letter-spacing: -0.2px;
+  line-height: 1.3;
+  margin-bottom: 6px;
+  color: #0b2a5b;
 }
 
 /* =========================
@@ -577,4 +507,48 @@ blockquote::before {
   font-size: 15px;
   color: #4a5d7a;
   line-height: 1.6;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .grid-3 { grid-template-columns: 1fr; }
+
+  .alt-split {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .alt-images {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .alt-images img {
+    height: 400px;
+    min-height: auto;
+  }
+
+  .who-we-serve {
+    padding: 60px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 20px;
+  }
+  
+  .logo {
+    width: 100px;
+  }
 }
